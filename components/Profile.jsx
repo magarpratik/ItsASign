@@ -1,5 +1,7 @@
+import { Text } from "react-native-web";
+
 const Profile = () => {
-  return <>Profile</>;
+  return <Text>Profile</Text>;
 };
 
 export default Profile;
