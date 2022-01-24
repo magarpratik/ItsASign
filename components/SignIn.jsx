@@ -18,12 +18,9 @@ const SignIn = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-  },
-  message: {
-  },
-  button: {
-  },
+  container: {},
+  message: {},
+  button: {},
 });
 
 export default SignIn;
