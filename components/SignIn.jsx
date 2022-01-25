@@ -21,7 +21,11 @@ const SignIn = ({ navigation }) => {
       <TextInput placeholder="Password" style={styles.textInput} />
 
       <View style={styles.button}>
-        <Button color="green" title="Sign in" />
+        <Button
+          color="green"
+          title="Sign in"
+          onPress={() => navigation.navigate("Home")}
+        />
       </View>
     </View>
   );
