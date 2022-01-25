@@ -53,7 +53,7 @@ const Home = () => {
     >
       <View
         style={{
-          backgroundColor: locked ? "grey" : "green",
+          backgroundColor: locked ? "grey" : "#5cb85c",
           padding: 20,
           marginVertical: 8,
           marginHorizontal: 16,
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
     paddingBottom: 15,
   },
   badgesContainer: {
-    backgroundColor: "yellow",
+    backgroundColor: "#5bc0de",
     margin: 10,
   },
   badges: {
