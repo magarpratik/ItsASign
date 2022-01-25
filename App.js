@@ -15,7 +15,7 @@ export default function App() {
           component={SignIn}
           options={{ title: "Sign in Screen" }}
         />
-        <Stack.Screen name="SignUp" component={SignUp} />
+        <Stack.Screen name="SignUp" component={SignUp} options={{ title: "Sign up Screen" }}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
