@@ -69,7 +69,7 @@ const Home = () => {
   );
 
   return (
-    <View>
+    <View style={styles.container}>
       <MenuBar />
       <Text style={styles.header}>Available lessons</Text>
       <FlatList
@@ -106,6 +106,11 @@ const Home = () => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+  },
   lessonText: {
     fontSize: 24,
   },
@@ -116,7 +121,8 @@ const styles = StyleSheet.create({
   },
   badgesContainer: {
     backgroundColor: "#5bc0de",
-    margin: 10,
+    marginTop: 10,
+    marginHorizontal: 5,
   },
   badges: {
     display: "flex",
