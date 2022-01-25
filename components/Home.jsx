@@ -15,47 +15,57 @@ const Home = () => {
     {
       id: "1",
       text: "Lesson 1",
+      locked: false,
     },
     {
       id: "2",
       text: "Lesson 2",
+      locked: true,
     },
     {
       id: "3",
       text: "Lesson 3",
+      locked: true,
     },
     {
       id: "4",
       text: "Lesson 4",
+      locked: true,
     },
     {
       id: "5",
       text: "Lesson 5",
+      locked: true,
     },
     {
       id: "6",
       text: "Lesson 6",
+      locked: true,
     },
     {
       id: "7",
       text: "Lesson 7",
+      locked: true,
     },
     {
       id: "8",
       text: "Lesson 8",
+      locked: true,
     },
     {
       id: "9",
       text: "Lesson 9",
+      locked: true,
     },
   ];
 
-  const Item = ({ title, id }) => (
+  const Item = ({ title, id, locked }) => (
     <Pressable
       onPress={() => {
         console.log(title);
         console.log(id);
       }}
+      disabled={locked}
       style={({ pressed }) => [
         {
           backgroundColor: pressed ? "rgb(210, 230, 255)" : "white",
@@ -69,7 +79,9 @@ const Home = () => {
     </Pressable>
   );
 
-  const renderItem = ({ item }) => <Item title={item.text} id={item.id} />;
+  const renderItem = ({ item }) => (
+    <Item title={item.text} id={item.id} locked={item.locked} />
+  );
 
   return (
     <View>
@@ -90,6 +102,26 @@ const Home = () => {
         <Text style={{ fontSize: 40 }}>Badges</Text>
 
         <View style={styles.badges}>
+          <Image
+            style={styles.badgeItem}
+            source={require("../assets/badge.png")}
+          />
+          <Image
+            style={styles.badgeItem}
+            source={require("../assets/badge.png")}
+          />
+          <Image
+            style={styles.badgeItem}
+            source={require("../assets/badge.png")}
+          />
+          <Image
+            style={styles.badgeItem}
+            source={require("../assets/badge.png")}
+          />
+          <Image
+            style={styles.badgeItem}
+            source={require("../assets/badge.png")}
+          />
           <Image
             style={styles.badgeItem}
             source={require("../assets/badge.png")}
