@@ -1,4 +1,12 @@
-import { FlatList, SectionList, StatusBar, StyleSheet, Text, View } from "react-native";
+import {
+  FlatList,
+  Pressable,
+  SectionList,
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 
 const Home = () => {
   const lessons = [
@@ -16,13 +24,26 @@ const Home = () => {
     },
   ];
 
-  const Item = ({ title }) => (
-    <View style={styles.item}>
-      <Text style={styles.title}>{title}</Text>
-    </View>
+  const Item = ({ title, id }) => (
+    <Pressable
+      onPress={() => {
+        console.log(title);
+        console.log(id);
+      }}
+      style={({ pressed }) => [
+        {
+          backgroundColor: pressed ? "rgb(210, 230, 255)" : "white",
+        },
+        styles.wrapperCustom,
+      ]}
+    >
+      <View style={styles.item}>
+        <Text style={styles.title}>{title}</Text>
+      </View>
+    </Pressable>
   );
 
-  const renderItem = ({ item }) => <Item title={item.text} />;
+  const renderItem = ({ item }) => <Item title={item.text} id={item.id} />;
 
   return (
     <View styles={styles.container}>
