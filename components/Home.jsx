@@ -84,37 +84,9 @@ const Home = () => {
       />
 
       <View style={styles.badgesContainer}>
-        <Text style={{ fontSize: 40 }}>Badges</Text>
+        <Text style={{ fontSize: 32 }}>Badges</Text>
 
         <View style={styles.badges}>
-          <Image
-            style={styles.badgeItem}
-            source={require("../assets/badge.png")}
-          />
-          <Image
-            style={styles.badgeItem}
-            source={require("../assets/badge.png")}
-          />
-          <Image
-            style={styles.badgeItem}
-            source={require("../assets/badge.png")}
-          />
-          <Image
-            style={styles.badgeItem}
-            source={require("../assets/badge.png")}
-          />
-          <Image
-            style={styles.badgeItem}
-            source={require("../assets/badge.png")}
-          />
-          <Image
-            style={styles.badgeItem}
-            source={require("../assets/badge.png")}
-          />
-          <Image
-            style={styles.badgeItem}
-            source={require("../assets/badge.png")}
-          />
           <Image
             style={styles.badgeItem}
             source={require("../assets/badge.png")}
@@ -135,10 +107,10 @@ const Home = () => {
 
 const styles = StyleSheet.create({
   lessonText: {
-    fontSize: 28,
+    fontSize: 24,
   },
   header: {
-    fontSize: 40,
+    fontSize: 32,
     paddingTop: 15,
     paddingBottom: 15,
   },
