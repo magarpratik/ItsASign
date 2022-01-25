@@ -2,8 +2,6 @@ import {
   FlatList,
   Image,
   Pressable,
-  SectionList,
-  StatusBar,
   StyleSheet,
   Text,
   View,
@@ -20,7 +18,7 @@ const Home = () => {
     {
       id: "2",
       text: "Lesson 2",
-      locked: true,
+      locked: false,
     },
     {
       id: "3",
@@ -35,26 +33,6 @@ const Home = () => {
     {
       id: "5",
       text: "Lesson 5",
-      locked: true,
-    },
-    {
-      id: "6",
-      text: "Lesson 6",
-      locked: true,
-    },
-    {
-      id: "7",
-      text: "Lesson 7",
-      locked: true,
-    },
-    {
-      id: "8",
-      text: "Lesson 8",
-      locked: true,
-    },
-    {
-      id: "9",
-      text: "Lesson 9",
       locked: true,
     },
   ];
@@ -73,8 +51,15 @@ const Home = () => {
         styles.wrapperCustom,
       ]}
     >
-      <View style={styles.item}>
-        <Text style={styles.title}>{title}</Text>
+      <View
+        style={{
+          backgroundColor: locked ? "grey" : "green",
+          padding: 20,
+          marginVertical: 8,
+          marginHorizontal: 16,
+        }}
+      >
+        <Text style={styles.lessonText}>{title}</Text>
       </View>
     </Pressable>
   );
@@ -149,13 +134,7 @@ const Home = () => {
 };
 
 const styles = StyleSheet.create({
-  item: {
-    backgroundColor: "#559955",
-    padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
-  },
-  title: {
+  lessonText: {
     fontSize: 28,
   },
   header: {
@@ -167,11 +146,11 @@ const styles = StyleSheet.create({
     backgroundColor: "yellow",
     margin: 10,
   },
-  badgeItem: { width: 50, height: 50 },
   badges: {
     display: "flex",
     flexDirection: "row",
   },
+  badgeItem: { width: 50, height: 50 },
 });
 
 export default Home;
