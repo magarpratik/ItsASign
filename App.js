@@ -9,7 +9,6 @@ import Home from "./components/Home";
 import Profile from "./components/Profile";
 import Leaderboard from "./components/Leaderboard";
 import Settings from "./components/Settings";
-import CustomDrawer from "./components/CustomDrawer";
 
 const Stack = createNativeStackNavigator();
 
@@ -17,13 +16,7 @@ const Drawer = createDrawerNavigator();
 
 function DrawerNavigator() {
   return (
-
-    <Drawer.Navigator initialRouteName="Home" drawerContent={(props) => <CustomDrawer {...props} />}
-      screenOptions={{
-        drawerActiveBackgroundColor: "#1d5e1e",
-        drawerActiveTintColor: "yellow",
-        drawerLabelStyle: { fontFamily: "Roboto-Medium", fontSize: 20 },
-      }}>
+    <Drawer.Navigator initialRouteName="Home">
       <Drawer.Screen
         name="Home"
         component={Home}
