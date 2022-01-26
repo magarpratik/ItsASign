@@ -24,7 +24,7 @@ const SignIn = ({ navigation }) => {
         <Button
           color="green"
           title="Sign in"
-          onPress={() => navigation.navigate("Home")}
+          onPress={() => navigation.navigate("HomePage")}
         />
       </View>
     </View>
