@@ -6,7 +6,6 @@ import {
   Text,
   View,
 } from "react-native";
-import MenuBar from "./MenuBar";
 
 const Home = () => {
   const lessons = [
@@ -70,7 +69,6 @@ const Home = () => {
 
   return (
     <View style={styles.container}>
-      <MenuBar />
       <Text style={styles.header}>Available lessons</Text>
       <FlatList
         data={lessons}
