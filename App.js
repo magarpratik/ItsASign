@@ -2,6 +2,7 @@ import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
+import { Image, StyleSheet, Text, View } from "react-native";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 import Home from "./components/Home";
@@ -15,13 +16,55 @@ const Drawer = createDrawerNavigator();
 
 function DrawerNavigator() {
   return (
-    <Drawer.Navigator
-      initialRouteName="Home"
-    >
-      <Drawer.Screen name="Home" component={Home} />
-      <Drawer.Screen name="Profile" component={Profile} />
-      <Drawer.Screen name="Leaderboard" component={Leaderboard} />
-      <Drawer.Screen name="Settings" component={Settings} />
+    <Drawer.Navigator initialRouteName="Home">
+      <Drawer.Screen
+        name="Home"
+        component={Home}
+        options={{
+          headerRight: () => (
+            <Image
+              source={{ uri: "https://api.multiavatar.com/helloworld.png" }}
+              style={styles.image}
+            />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="Profile"
+        component={Profile}
+        options={{
+          headerRight: () => (
+            <Image
+              source={{ uri: "https://api.multiavatar.com/helloworld.png" }}
+              style={styles.image}
+            />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="Leaderboard"
+        component={Leaderboard}
+        options={{
+          headerRight: () => (
+            <Image
+              source={{ uri: "https://api.multiavatar.com/helloworld.png" }}
+              style={styles.image}
+            />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="Settings"
+        component={Settings}
+        options={{
+          headerRight: () => (
+            <Image
+              source={{ uri: "https://api.multiavatar.com/helloworld.png" }}
+              style={styles.image}
+            />
+          ),
+        }}
+      />
     </Drawer.Navigator>
   );
 }
@@ -49,3 +92,7 @@ export default function App() {
     </NavigationContainer>
   );
 }
+
+const styles = StyleSheet.create({
+  image: { width: 50, height: 50, marginRight: 10 },
+});
