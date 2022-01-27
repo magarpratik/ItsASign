@@ -1,7 +1,16 @@
-import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
+import {
+    FlatList,
+    Image,
+    Pressable,
+    StyleSheet,
+    Text,
+    View,
+    TouchableOpacity,
+} from "react-native";
+import { Navigate } from "react-router";
 import Badges from "./Badges";
 
-const Home = () => {
+const Home = ({ navigation: { navigate } }) => {
     const lessons = [
         {
             id: "1",
@@ -35,11 +44,14 @@ const Home = () => {
             onPress={() => {
                 console.log(title);
                 console.log(id);
+                navigate("Lesson");
             }}
             disabled={locked}
             style={({ pressed }) => [
                 {
-                    backgroundColor: pressed ? "rgb(210, 230, 255)" : "white",
+                    id: "1",
+                    text: "Lesson 1",
+                    locked: false,
                 },
                 styles.wrapperCustom,
             ]}

@@ -77,28 +77,30 @@ function DrawerNavigator({ navigation: { navigate } }) {
 
 export default function App() {
     return (
-        <View>
-            <NavigationContainer>
-                <Stack.Navigator>
-                    <Stack.Screen
-                        name="SignIn"
-                        component={SignIn}
-                        options={{ title: "Sign in Screen" }}
-                    />
-                    <Stack.Screen
-                        name="SignUp"
-                        component={SignUp}
-                        options={{ title: "Sign up Screen" }}
-                    />
-                    <Stack.Screen
-                        name="HomePage"
-                        component={DrawerNavigator}
-                        options={{ headerShown: false }}
-                    />
-                </Stack.Navigator>
-            </NavigationContainer>
-            {/* <LessonThenQuiz /> */}
-        </View>
+        <NavigationContainer>
+            <Stack.Navigator>
+                <Stack.Screen
+                    name="SignIn"
+                    component={SignIn}
+                    options={{ title: "Sign in Screen" }}
+                />
+                <Stack.Screen
+                    name="SignUp"
+                    component={SignUp}
+                    options={{ title: "Sign up Screen" }}
+                />
+                <Stack.Screen
+                    name="HomePage"
+                    component={DrawerNavigator}
+                    options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                    name="Lesson"
+                    component={LessonThenQuiz}
+                    options={{ headerShown: false }}
+                />
+            </Stack.Navigator>
+        </NavigationContainer>
     );
 }
 
