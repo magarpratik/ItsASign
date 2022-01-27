@@ -10,6 +10,7 @@ import Profile from "./components/Profile";
 import Leaderboard from "./components/Leaderboard";
 import Settings from "./components/Settings";
 import CustomDrawer from "./components/CustomDrawer";
+import { LessonThenQuiz } from './components/Lesson-then-quiz';
 
 const Stack = createNativeStackNavigator();
 
@@ -80,6 +81,7 @@ function DrawerNavigator() {
 
 export default function App() {
   return (
+    <View>
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
@@ -99,6 +101,11 @@ export default function App() {
         />
       </Stack.Navigator>
     </NavigationContainer>
+
+
+  {/* <LessonThenQuiz /> */}
+  </View>
+
   );
 }
 
