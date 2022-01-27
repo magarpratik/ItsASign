@@ -1,8 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 import { Bar } from "react-native-progress";
+import { UserContext } from "../App";
 
 const Profile = () => {
+    const username = useContext(UserContext);
+
     const [level, setLevel] = useState(0);
     const [progress, setProgress] = useState(0);
     const [totalXP, setTotalXP] = useState(0);
@@ -16,7 +19,6 @@ const Profile = () => {
 
     // request total xp at some point
     // calculate from there
-    console.log(level);
     return (
         <View style={styles.container}>
             <Image
@@ -25,7 +27,7 @@ const Profile = () => {
                 }}
                 style={styles.image}
             />
-            <Text>username</Text>
+            <Text>{username}</Text>
             <View style={styles.bar}>
                 <Bar progress={progress} width={250} height={20} />
                 <Text>Level {level}</Text>

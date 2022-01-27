@@ -13,6 +13,7 @@ import Settings from "./components/Settings";
 const Stack = createNativeStackNavigator();
 
 const Drawer = createDrawerNavigator();
+export const UserContext = React.createContext();
 
 function DrawerNavigator({ navigation: { navigate } }) {
     const profileImgLink = (
@@ -26,36 +27,38 @@ function DrawerNavigator({ navigation: { navigate } }) {
         </TouchableOpacity>
     );
     return (
-        <Drawer.Navigator initialRouteName="Home">
-            <Drawer.Screen
-                name="Home"
-                component={Home}
-                options={{
-                    headerRight: () => profileImgLink,
-                }}
-            />
-            <Drawer.Screen
-                name="Profile"
-                component={Profile}
-                options={{
-                    headerRight: () => profileImgLink,
-                }}
-            />
-            <Drawer.Screen
-                name="Leaderboard"
-                component={Leaderboard}
-                options={{
-                    headerRight: () => profileImgLink,
-                }}
-            />
-            <Drawer.Screen
-                name="Settings"
-                component={Settings}
-                options={{
-                    headerRight: () => profileImgLink,
-                }}
-            />
-        </Drawer.Navigator>
+        <UserContext.Provider value="Reed">
+            <Drawer.Navigator initialRouteName="Home">
+                <Drawer.Screen
+                    name="Home"
+                    component={Home}
+                    options={{
+                        headerRight: () => profileImgLink,
+                    }}
+                />
+                <Drawer.Screen
+                    name="Profile"
+                    component={Profile}
+                    options={{
+                        headerRight: () => profileImgLink,
+                    }}
+                />
+                <Drawer.Screen
+                    name="Leaderboard"
+                    component={Leaderboard}
+                    options={{
+                        headerRight: () => profileImgLink,
+                    }}
+                />
+                <Drawer.Screen
+                    name="Settings"
+                    component={Settings}
+                    options={{
+                        headerRight: () => profileImgLink,
+                    }}
+                />
+            </Drawer.Navigator>
+        </UserContext.Provider>
     );
 }
 
