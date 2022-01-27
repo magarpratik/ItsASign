@@ -42,12 +42,13 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         alignItems: "center",
     },
-    image: { width: 300, height: 300 },
+    image: { width: 300, height: 300, marginTop: 30, marginBottom: 100 },
     bar: {
         marginHorizontal: 10,
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
+        marginTop: 10,
     },
 });
 
