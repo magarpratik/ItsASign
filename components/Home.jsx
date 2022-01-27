@@ -5,9 +5,11 @@ import {
   StyleSheet,
   Text,
   View,
+  TouchableOpacity
 } from "react-native";
+import { Navigate } from "react-router";
 
-const Home = () => {
+const Home = ({ navigation:{navigate} }) => {
   const lessons = [
     {
       id: "1",
@@ -41,6 +43,7 @@ const Home = () => {
       onPress={() => {
         console.log(title);
         console.log(id);
+        navigate('Lesson')
       }}
       disabled={locked}
       style={({ pressed }) => [
@@ -64,7 +67,12 @@ const Home = () => {
   );
 
   const renderItem = ({ item }) => (
-    <Item title={item.text} id={item.id} locked={item.locked} />
+    <TouchableOpacity onPress={() => {
+      console.log("test")
+      navigate('LessonThenQuiz')
+    }}>
+      <Item title={item.text} id={item.id} locked={item.locked} />
+    </TouchableOpacity>
   );
 
   return (

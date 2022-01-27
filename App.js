@@ -81,7 +81,7 @@ function DrawerNavigator() {
 
 export default function App() {
   return (
-    <View>
+  
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
@@ -99,12 +99,16 @@ export default function App() {
           component={DrawerNavigator}
           options={{ headerShown: false }}
         />
+        <Stack.Screen
+          name="Lesson"
+          component={LessonThenQuiz}
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
 
 
-  {/* <LessonThenQuiz /> */}
-  </View>
+    
 
   );
 }
