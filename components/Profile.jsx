@@ -2,6 +2,7 @@ import { useEffect, useState, useContext } from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 import { Bar } from "react-native-progress";
 import { UserContext } from "../App";
+import Badges from "./Badges";
 
 const Profile = () => {
     const username = useContext(UserContext);
@@ -32,6 +33,7 @@ const Profile = () => {
                 <Bar progress={progress} width={250} height={20} />
                 <Text>Level {level}</Text>
             </View>
+            <Badges></Badges>
         </View>
     );
 };
