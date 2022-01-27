@@ -9,6 +9,8 @@ import Home from "./components/Home";
 import Profile from "./components/Profile";
 import Leaderboard from "./components/Leaderboard";
 import Settings from "./components/Settings";
+import CustomDrawer from "./components/CustomDrawer";
+import { LessonThenQuiz } from "./components/Lesson-then-quiz";
 
 const Stack = createNativeStackNavigator();
 
@@ -28,7 +30,18 @@ function DrawerNavigator({ navigation: { navigate } }) {
     );
     return (
         <UserContext.Provider value="Reed">
-            <Drawer.Navigator initialRouteName="Home">
+            <Drawer.Navigator
+                initialRouteName="Home"
+                drawerContent={(props) => <CustomDrawer {...props} />}
+                screenOptions={{
+                    drawerActiveBackgroundColor: "#1d5e1e",
+                    drawerActiveTintColor: "yellow",
+                    drawerLabelStyle: {
+                        fontFamily: "Roboto-Medium",
+                        fontSize: 20,
+                    },
+                }}
+            >
                 <Drawer.Screen
                     name="Home"
                     component={Home}
@@ -64,25 +77,28 @@ function DrawerNavigator({ navigation: { navigate } }) {
 
 export default function App() {
     return (
-        <NavigationContainer>
-            <Stack.Navigator>
-                <Stack.Screen
-                    name="SignIn"
-                    component={SignIn}
-                    options={{ title: "Sign in Screen" }}
-                />
-                <Stack.Screen
-                    name="SignUp"
-                    component={SignUp}
-                    options={{ title: "Sign up Screen" }}
-                />
-                <Stack.Screen
-                    name="HomePage"
-                    component={DrawerNavigator}
-                    options={{ headerShown: false }}
-                />
-            </Stack.Navigator>
-        </NavigationContainer>
+        <View>
+            <NavigationContainer>
+                <Stack.Navigator>
+                    <Stack.Screen
+                        name="SignIn"
+                        component={SignIn}
+                        options={{ title: "Sign in Screen" }}
+                    />
+                    <Stack.Screen
+                        name="SignUp"
+                        component={SignUp}
+                        options={{ title: "Sign up Screen" }}
+                    />
+                    <Stack.Screen
+                        name="HomePage"
+                        component={DrawerNavigator}
+                        options={{ headerShown: false }}
+                    />
+                </Stack.Navigator>
+            </NavigationContainer>
+            {/* <LessonThenQuiz /> */}
+        </View>
     );
 }
 
