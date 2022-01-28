@@ -4,7 +4,7 @@ import { Button, StyleSheet, Text, View, Touchable, TouchableOpacity, Image } fr
 import { Next } from "./Next-button"
 import { PictureOptions } from './Picture-options';
 import { LetterOptions } from './Letter-options';
-import { Camera } from './Camera-test'
+import { Cam } from './Camera-test'
 
 const Answer = ({ allQuestions, currentQuestionIndex, setCurrentQuestionIndex }) => {
     const [currentSelectedOption, setCurrentSelectedOption] = useState(null)
@@ -39,7 +39,7 @@ const Answer = ({ allQuestions, currentQuestionIndex, setCurrentQuestionIndex })
     } else if (allQuestions[currentQuestionIndex]['question_type'] === 'camera') {
       return ( 
         <View>
-          <Camera />
+          <Cam />
           <Next allQuestions={allQuestions} currentQuestionIndex={currentQuestionIndex} setCurrentQuestionIndex={setCurrentQuestionIndex} setCurrentSelectedOption={setCurrentSelectedOption} setCorrectOption={setCorrectOption} setIsOptionDisabled={setIsOptionDisabled} showNextButton={showNextButton} setShowNextButton={setShowNextButton} />
         </View>
       )
