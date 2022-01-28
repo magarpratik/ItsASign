@@ -36,6 +36,7 @@ const SignIn = ({ navigation }) => {
                 placeholder="Password"
                 style={styles.textInput}
                 onChangeText={setPasswordText}
+                secureTextEntry={true}
             />
 
             <View style={styles.button}>
@@ -44,6 +45,7 @@ const SignIn = ({ navigation }) => {
                     title="Sign in"
                     onPress={() => {
                         setUsername(userText);
+
                         navigation.navigate("HomePage");
                     }}
                 />
