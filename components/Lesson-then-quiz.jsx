@@ -6,6 +6,8 @@ import { data } from '../utils/Quiz-A-data'
 import { Question } from './Questions';
 import { Answer } from './Answer-options'
 import { Lesson } from './Lesson'
+import { Cam } from './Camera-test';
+import CamTest from './Camera-testing';
 
 const LessonThenQuiz = () => {
 
@@ -21,10 +23,7 @@ const LessonThenQuiz = () => {
     )
   } else if (lessonCompleted === true) {
     return (
-      <View>
-        <Question allQuestions={allQuestions} currentQuestionIndex={currentQuestionIndex} />
-        <Answer allQuestions={allQuestions} currentQuestionIndex={currentQuestionIndex} setCurrentQuestionIndex={setCurrentQuestionIndex} />
-      </View>
+      <CamTest />
     )
   }
 }
