@@ -1,3 +1,4 @@
+import React from "react";
 import {
     FlatList,
     Image,
@@ -7,10 +8,12 @@ import {
     View,
     TouchableOpacity,
 } from "react-native";
-import { Navigate } from "react-router";
+import { UserContext } from "../utils/userContext";
 import Badges from "./Badges";
 
 const Home = ({ navigation: { navigate } }) => {
+    // const { username } = React.useContext(UserContext);
+    // console.log(username);
     const lessons = [
         {
             id: "1",
