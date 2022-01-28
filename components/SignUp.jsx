@@ -5,7 +5,11 @@ const SignUp = ({ navigation }) => {
         <View style={styles.container}>
             <TextInput placeholder="Name" style={styles.textInput} />
             <TextInput placeholder="Username" style={styles.textInput} />
-            <TextInput placeholder="Password" style={styles.textInput} />
+            <TextInput
+                placeholder="Password"
+                style={styles.textInput}
+                secureTextEntry={true}
+            />
             <TextInput placeholder="Email" style={styles.textInput} />
             <Button
                 style={styles.button}
