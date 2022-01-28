@@ -62,6 +62,7 @@ const Home = ({ navigation: { navigate } }) => {
                     padding: 20,
                     marginVertical: 8,
                     marginHorizontal: 16,
+                    borderRadius: 15,
                 }}
             >
                 <Text style={styles.lessonText}>{title}</Text>
@@ -82,7 +83,7 @@ const Home = ({ navigation: { navigate } }) => {
                 keyExtractor={(item) => item.id}
                 style={{
                     height: "60%",
-                    backgroundColor: "red",
+                    backgroundColor: "eggshell",
                     flexGrow: 0,
                 }}
             />
@@ -104,6 +105,8 @@ const styles = StyleSheet.create({
         fontSize: 32,
         paddingTop: 15,
         paddingBottom: 15,
+        textAlign: "center",
+        marginBottom: 0,
     },
 });
 

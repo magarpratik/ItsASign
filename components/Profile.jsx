@@ -18,8 +18,6 @@ const Profile = () => {
         setProgress((totalXP % 100) / 100);
     }, [totalXP]);
 
-    // request total xp at some point
-    // calculate from there
     return (
         <View style={styles.container}>
             <Image
