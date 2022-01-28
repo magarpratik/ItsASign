@@ -10,11 +10,13 @@ import {
     DrawerContentScrollView,
     DrawerItemList,
 } from "@react-navigation/drawer";
-import { UserContext } from "../App";
+import { useNavigation } from "@react-navigation/native";
+import { UserContext } from "../utils/userContext";
 
 const CustomDrawer = (props) => {
-    const username = React.useContext(UserContext);
-
+    const { username } = React.useContext(UserContext);
+    const { setUsername } = React.useContext(UserContext);
+    const navigation = useNavigation();
     return (
         <View style={{ flex: 1 }}>
             <DrawerContentScrollView
@@ -54,7 +56,12 @@ const CustomDrawer = (props) => {
                     <DrawerItemList {...props} />
                 </View>
             </DrawerContentScrollView>
-            <TouchableOpacity onPress={() => {}}>
+            <TouchableOpacity
+                onPress={() => {
+                    navigation.navigate("SignIn");
+                    setUsername(null);
+                }}
+            >
                 <View
                     style={{
                         padding: 20,

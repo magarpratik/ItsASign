@@ -1,11 +1,11 @@
 import { useEffect, useState, useContext } from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 import { Bar } from "react-native-progress";
-import { UserContext } from "../App";
+import { UserContext } from "../utils/userContext";
 import Badges from "./Badges";
 
 const Profile = () => {
-    const username = useContext(UserContext);
+    const { username } = useContext(UserContext);
 
     const [level, setLevel] = useState(0);
     const [progress, setProgress] = useState(0);
