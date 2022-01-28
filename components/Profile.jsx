@@ -3,13 +3,14 @@ import { Image, StyleSheet, Text, View } from "react-native";
 import { Bar } from "react-native-progress";
 import { UserContext } from "../utils/userContext";
 import Badges from "./Badges";
+import React from "react";
 
 const Profile = () => {
-    const { username } = useContext(UserContext);
-
+    const { username } = React.useContext(UserContext);
     const [level, setLevel] = useState(0);
     const [progress, setProgress] = useState(0);
     const [totalXP, setTotalXP] = useState(0);
+
     useEffect(() => {
         setTotalXP(153);
     }, []);
