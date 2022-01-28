@@ -55,32 +55,39 @@ const SignUp = ({ navigation }) => {
                 style={styles.textInput}
                 onChangeText={setNameText}
             />
-            {isValidUsername ? null : (
-                <Text>Username should be longer than 4 characters.</Text>
-            )}
+
             <TextInput
                 placeholder="Username"
                 style={styles.textInput}
                 onChangeText={setUsernameSignUpText}
             />
-            {isValidPassword ? null : (
-                <Text>
-                    Password should be longer than 8 characters and contain a
-                    mix of letters and numbers.
+            {isValidUsername ? null : (
+                <Text style={styles.text}>
+                    Username should be longer than 4 characters.
                 </Text>
             )}
+
             <TextInput
                 placeholder="Password"
                 style={styles.textInput}
                 secureTextEntry={true}
                 onChangeText={setPasswordText}
             />
-            {isValidEmail ? null : <Text>Please enter a valid email.</Text>}
+            {isValidPassword ? null : (
+                <Text style={styles.text}>
+                    Password should be longer than 8 characters and contain a
+                    mix of letters and numbers.
+                </Text>
+            )}
+
             <TextInput
                 placeholder="Email"
                 style={styles.textInput}
                 onChangeText={setEmailText}
             />
+            {isValidEmail ? null : (
+                <Text style={styles.text}>Please enter a valid email.</Text>
+            )}
             <Button
                 style={styles.button}
                 color="green"
@@ -107,6 +114,10 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         width: 200,
     },
+    // text: {
+    //     fontSize: 8,
+    //     color: red,
+    // },
 });
 
 export default SignUp;
