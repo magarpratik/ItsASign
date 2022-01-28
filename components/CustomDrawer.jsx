@@ -59,7 +59,7 @@ const CustomDrawer = (props) => {
             <TouchableOpacity
                 onPress={() => {
                     navigation.navigate("SignIn");
-                    setUsername(null);
+                    setUsername("");
                 }}
             >
                 <View
