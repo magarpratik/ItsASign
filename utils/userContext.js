@@ -1,6 +1,3 @@
-import * as React from "react";
+import { createContext } from "react";
 
-export const UserContext = React.createContext({
-    username: null,
-    setUsername: (username) => {},
-});
+export const UserContext = createContext();
