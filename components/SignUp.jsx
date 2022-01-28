@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Image, View, TextInput, StyleSheet } from "react-native";
+import { Button, Image, View, TextInput, StyleSheet, Text } from "react-native";
 import { set } from "react-native-reanimated";
 
 const SignUp = ({ navigation }) => {
@@ -36,16 +36,12 @@ const SignUp = ({ navigation }) => {
         setEmail(emailText);
 
         if (usernameSignUpText.length < 4) {
-            console.log("user");
             setIsValidUsername(false);
         } else if (!checkPasswordValid(passwordText)) {
-            console.log("pass");
             setIsValidPassword(false);
         } else if (!checkEmailValid(emailText)) {
-            console.log(emailText);
             setIsValidEmail(false);
         } else {
-            console.log("navv");
             navigation.navigate("SignIn");
         }
 
@@ -59,22 +55,27 @@ const SignUp = ({ navigation }) => {
                 style={styles.textInput}
                 onChangeText={setNameText}
             />
-            {/* {isValidUsername ? null : (
-                <Text>
-                    Invalid Username! Should be longer than 4 characters.
-                </Text>
-            )} */}
+            {isValidUsername ? null : (
+                <Text>Username should be longer than 4 characters.</Text>
+            )}
             <TextInput
                 placeholder="Username"
                 style={styles.textInput}
                 onChangeText={setUsernameSignUpText}
             />
+            {isValidPassword ? null : (
+                <Text>
+                    Password should be longer than 8 characters and contain a
+                    mix of letters and numbers.
+                </Text>
+            )}
             <TextInput
                 placeholder="Password"
                 style={styles.textInput}
                 secureTextEntry={true}
                 onChangeText={setPasswordText}
             />
+            {isValidEmail ? null : <Text>Please enter a valid email.</Text>}
             <TextInput
                 placeholder="Email"
                 style={styles.textInput}
