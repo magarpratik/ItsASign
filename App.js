@@ -11,13 +11,15 @@ import Leaderboard from "./components/Leaderboard";
 import Settings from "./components/Settings";
 import CustomDrawer from "./components/CustomDrawer";
 import { LessonThenQuiz } from "./components/Lesson-then-quiz";
+import { UserContext } from "./utils/userContext";
 
 const Stack = createNativeStackNavigator();
 
 const Drawer = createDrawerNavigator();
-export const UserContext = React.createContext();
 
 function DrawerNavigator({ navigation: { navigate } }) {
+    const { username } = React.useContext(UserContext);
+    const { setUsername } = React.useContext(UserContext);
     const profileImgLink = (
         <TouchableOpacity onPress={() => navigate("Profile")}>
             <Image
@@ -29,7 +31,7 @@ function DrawerNavigator({ navigation: { navigate } }) {
         </TouchableOpacity>
     );
     return (
-        <UserContext.Provider value="Reed">
+        <UserContext.Provider value={{ username, setUsername }}>
             <Drawer.Navigator
                 initialRouteName="Home"
                 drawerContent={(props) => <CustomDrawer {...props} />}
