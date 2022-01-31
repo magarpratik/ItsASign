@@ -74,37 +74,37 @@ function DrawerNavigator({ navigation: { navigate } }) {
 }
 
 export default function App() {
-    const [username, setUsername] = React.useState("John Smith");
-    console.log(username);
-    return (
-        <UserContext.Provider value={{ username, setUsername }}>
-            <NavigationContainer>
-                <Stack.Navigator>
-                    <Stack.Screen
-                        name="SignIn"
-                        component={SignIn}
-                        options={{ title: "Sign in Screen" }}
-                    />
-                    <Stack.Screen
-                        name="SignUp"
-                        component={SignUp}
-                        options={{ title: "Sign up Screen" }}
-                    />
-                    <Stack.Screen
-                        name="HomePage"
-                        component={DrawerNavigator}
-                        options={{ headerShown: false }}
-                        value={username}
-                    />
-                    <Stack.Screen
-                        name="Lesson"
-                        component={LessonThenQuiz}
-                        options={{ headerShown: false }}
-                    />
-                </Stack.Navigator>
-            </NavigationContainer>
-        </UserContext.Provider>
-    );
+  const [username, setUsername] = React.useState("John Smith");
+  console.log(username);
+  return (
+    <UserContext.Provider value={{ username, setUsername }}>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            name="SignIn"
+            component={SignIn}
+            options={{ title: "Sign in Screen" }}
+          />
+          <Stack.Screen
+            name="SignUp"
+            component={SignUp}
+            options={{ title: "Sign up Screen" }}
+          />
+          <Stack.Screen
+            name="HomePage"
+            component={DrawerNavigator}
+            options={{ headerShown: false }}
+            value={username}
+          />
+          <Stack.Screen
+            name="Lesson"
+            component={LessonThenQuiz}
+            options={{ headerShown: false }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </UserContext.Provider>
+  );
 }
 
 const styles = StyleSheet.create({

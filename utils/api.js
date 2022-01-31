@@ -40,12 +40,12 @@ export const getLessonsCompleted = (username) => {
 };
 
 export const getUser = (username) => {
-    return signApi
-        .get(`/api/users/${username}`)
-        .then((response) => {
-            return response.data.user;
-        })
-        .catch((err) => {
-            console.log(err);
-        });
+  return signApi
+    .get(`/api/users/${username}`)
+    .then((response) => {
+      return response.data.user;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
