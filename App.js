@@ -75,7 +75,7 @@ function DrawerNavigator({ navigation: { navigate } }) {
 
 export default function App() {
   const [username, setUsername] = React.useState("John Smith");
-  console.log(username);
+
   return (
     <UserContext.Provider value={{ username, setUsername }}>
       <NavigationContainer>

@@ -9,7 +9,7 @@ import {
   Text,
   Pressable,
 } from "react-native";
-import { getUser } from "../utils/api";
+import { getUser, signIn } from "../utils/api";
 import { UserContext } from "../utils/userContext";
 
 const SignIn = ({ navigation }) => {
@@ -39,26 +39,25 @@ const SignIn = ({ navigation }) => {
       setIsValidPassword(false);
     }
 
-    // send api request to make user
+    signIn(userText, passwordText)
+      .then((res) => {
+        console.log(res);
+        if (res.successful === true) {
+          navigation.navigate("HomePage");
+        } else {
+          setIsValidPassword(false);
+          setIsValidUsername(false);
+          console.log(res.message);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   useEffect(() => {
     if (isFirstLoad) {
       setIsFirstLoad(false);
-    } else {
-      getUser(username).then((result) => {
-        if (result) {
-          // if backend is string
-          if (result.password === password) {
-            navigation.navigate("HomePage");
-          } else {
-            setIsValidPassword(false);
-            console.log(result.message);
-          }
-        } else {
-          setIsValidUsername(false);
-        }
-      });
     }
   }, [username, password]);
 
