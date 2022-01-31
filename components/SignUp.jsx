@@ -81,6 +81,7 @@ const SignUp = ({ navigation }) => {
     }, [name, usernameSignUp, password, email]);
     return (
         <View style={styles.container}>
+            <Text style={styles.title}>ItsASign!</Text>
             <TextInput
                 placeholder="Name"
                 style={styles.textInput}
@@ -151,12 +152,16 @@ const styles = StyleSheet.create({
     },
     text: {
         color: "red",
+        width: 200,
     },
     createButton: {
         marginTop: 15,
         backgroundColor: "white",
         padding: 10,
         borderRadius: 6,
+    },
+    title: {
+        fontSize: 50,
     },
 });
 
