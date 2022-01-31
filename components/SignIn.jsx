@@ -40,7 +40,8 @@ const SignIn = ({ navigation }) => {
         } else {
             getUser(username).then((result) => {
                 if (result) {
-                    if (result.password === Number(password)) {
+                    // if backend is string
+                    if (result.password === password) {
                         navigation.navigate("HomePage");
                     } else {
                         setIsValidPassword(false);
