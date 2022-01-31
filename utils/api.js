@@ -10,7 +10,7 @@ export const postUser = (name, username, password, email) => {
             username: username,
             email: email,
             password: password,
-            confirmPassword: password,
+            name: name,
         })
         .then((response) => {
             return response.data;
