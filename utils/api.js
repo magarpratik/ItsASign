@@ -46,4 +46,14 @@ export const getLessonsCompleted = (username) => {
   return signApi.get(`api/users/${username}/progress`).then((response) => {
     return response.data.progress;
   });
+export const signIn = (username, password) => {
+  return signApi
+    .get(`api/sign_in/?username=${username}&password=${password}`)
+    .then((response) => {
+      console.log(response.data);
+      return response.data;
+    })
+    .catch((err) => {
+      console.log("there was a n error");
+    });
 };
