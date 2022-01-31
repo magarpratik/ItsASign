@@ -18,59 +18,59 @@ const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
 
 function DrawerNavigator({ navigation: { navigate } }) {
-    const profileImgLink = (
-        <TouchableOpacity onPress={() => navigate("Profile")}>
-            <Image
-                source={{
-                    uri: "https://api.multiavatar.com/helloworld.png",
-                }}
-                style={styles.image}
-            />
-        </TouchableOpacity>
-    );
-    return (
-        <Drawer.Navigator
-            initialRouteName="Home"
-            drawerContent={(props) => <CustomDrawer {...props} />}
-            screenOptions={{
-                drawerActiveBackgroundColor: "#1d5e1e",
-                drawerActiveTintColor: "yellow",
-                drawerLabelStyle: {
-                    fontFamily: "Roboto-Medium",
-                    fontSize: 20,
-                },
-            }}
-        >
-            <Drawer.Screen
-                name="Home"
-                component={Home}
-                options={{
-                    headerRight: () => profileImgLink,
-                }}
-            />
-            <Drawer.Screen
-                name="Profile"
-                component={Profile}
-                options={{
-                    headerRight: () => profileImgLink,
-                }}
-            />
-            <Drawer.Screen
-                name="Leaderboard"
-                component={Leaderboard}
-                options={{
-                    headerRight: () => profileImgLink,
-                }}
-            />
-            <Drawer.Screen
-                name="Settings"
-                component={Settings}
-                options={{
-                    headerRight: () => profileImgLink,
-                }}
-            />
-        </Drawer.Navigator>
-    );
+  const profileImgLink = (
+    <TouchableOpacity onPress={() => navigate("Profile")}>
+      <Image
+        source={{
+          uri: "https://api.multiavatar.com/helloworld.png",
+        }}
+        style={styles.image}
+      />
+    </TouchableOpacity>
+  );
+  return (
+    <Drawer.Navigator
+      initialRouteName="Home"
+      drawerContent={(props) => <CustomDrawer {...props} />}
+      screenOptions={{
+        drawerActiveBackgroundColor: "#1d5e1e",
+        drawerActiveTintColor: "yellow",
+        drawerLabelStyle: {
+          fontFamily: "Roboto-Medium",
+          fontSize: 20,
+        },
+      }}
+    >
+      <Drawer.Screen
+        name="Home"
+        component={Home}
+        options={{
+          headerRight: () => profileImgLink,
+        }}
+      />
+      <Drawer.Screen
+        name="Profile"
+        component={Profile}
+        options={{
+          headerRight: () => profileImgLink,
+        }}
+      />
+      <Drawer.Screen
+        name="Leaderboard"
+        component={Leaderboard}
+        options={{
+          headerRight: () => profileImgLink,
+        }}
+      />
+      <Drawer.Screen
+        name="Settings"
+        component={Settings}
+        options={{
+          headerRight: () => profileImgLink,
+        }}
+      />
+    </Drawer.Navigator>
+  );
 }
 
 export default function App() {
@@ -108,5 +108,5 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-    image: { width: 50, height: 50, marginRight: 10 },
+  image: { width: 50, height: 50, marginRight: 10 },
 });

@@ -1,6 +1,15 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 
-import { Button, Image, View, TextInput, StyleSheet, Text } from "react-native";
+import {
+    Button,
+    Image,
+    View,
+    TextInput,
+    StyleSheet,
+    Text,
+    Pressable,
+} from "react-native";
+import { getUser } from "../utils/api";
 import { UserContext } from "../utils/userContext";
 
 const SignIn = ({ navigation }) => {
@@ -10,10 +19,14 @@ const SignIn = ({ navigation }) => {
 
     const [isValidUsername, setIsValidUsername] = useState(true);
     const [isValidPassword, setIsValidPassword] = useState(true);
+    const [isFirstLoad, setIsFirstLoad] = useState(true);
 
-    const { username, setUsername } = useContext(UserContext);
+
+  const { username, setUsername } = useContext(UserContext);
 
     const handleSignIn = () => {
+        setIsValidPassword(true);
+        setIsValidUsername(true);
         const checkPasswordValid = (text) => {
             return text.match(/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.{8,50})/) !== null;
         };
@@ -25,12 +38,30 @@ const SignIn = ({ navigation }) => {
             setIsValidUsername(false);
         } else if (!checkPasswordValid(passwordText)) {
             setIsValidPassword(false);
-        } else {
-            navigation.navigate("HomePage");
         }
 
         // send api request to make user
     };
+
+    useEffect(() => {
+        if (isFirstLoad) {
+            setIsFirstLoad(false);
+        } else {
+            getUser(username).then((result) => {
+                if (result) {
+                    // if backend is string
+                    if (result.password === password) {
+                        navigation.navigate("HomePage");
+                    } else {
+                        setIsValidPassword(false);
+                        console.log(result.message);
+                    }
+                } else {
+                    setIsValidUsername(false);
+                }
+            });
+        }
+    }, [username, password]);
 
     return (
         <View style={styles.container}>
@@ -40,7 +71,7 @@ const SignIn = ({ navigation }) => {
                 }}
                 style={styles.image}
             />
-            <View style={styles.button}>
+            {/* <View style={styles.button}>
                 <Button
                     color="green"
                     title="Sign up!"
@@ -48,7 +79,13 @@ const SignIn = ({ navigation }) => {
                         navigation.navigate("SignUp", { name: "Jane" })
                     }
                 />
-            </View>
+            </View> */}
+            <Pressable
+                onPress={() => navigation.navigate("SignUp", { name: "Jane" })}
+                style={styles.button}
+            >
+                <Text style={styles.buttonText}>Sign up!</Text>
+            </Pressable>
 
             <TextInput
                 placeholder="Username"
@@ -56,9 +93,7 @@ const SignIn = ({ navigation }) => {
                 onChangeText={setUserText}
             />
             {isValidUsername ? null : (
-                <Text style={styles.text}>
-                    Username should be longer than 4 characters.
-                </Text>
+                <Text style={styles.errorText}>User does not exist.</Text>
             )}
             <TextInput
                 placeholder="Password"
@@ -67,31 +102,47 @@ const SignIn = ({ navigation }) => {
                 secureTextEntry={true}
             />
             {isValidPassword ? null : (
-                <Text style={styles.text}>
-                    Password should be longer than 8 characters and contain a
-                    mix of letters and numbers.
-                </Text>
+                <Text style={styles.errorText}>Incorrect password.</Text>
             )}
 
-            <View style={styles.button}>
-                <Button color="green" title="Sign in" onPress={handleSignIn} />
-            </View>
+            <Pressable style={styles.button} onPress={handleSignIn}>
+                <Text style={styles.buttonText}>Sign in</Text>
+            </Pressable>
         </View>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
+    display: "flex",
+    flex: 1,
+    flexDirection: "column",
+    alignItems: "center",
+    backgroundColor: "#78ba97",
+  },
+    button: {
+    marginTop: 20,
+    backgroundColor: "#56a996",
+    margin: 20,
+    borderRadius: 10,
+    width: 150,
+  },
+    
+  image: { width: 300, height: 300 },
+  textInput: {
+    height: 40,
+    borderColor: "gray",
+    borderWidth: 1,
+    width: 200,
+    padding: 5,
+    margin: 5,
+    backgroundColor: "white",
+  },
+    buttonText: {
+        color: "white",
     },
-    button: { marginTop: 20 },
-    image: { width: 300, height: 300 },
-    textInput: {
-        height: 40,
-        borderColor: "gray",
-        borderWidth: 1,
+    errorText: {
+        color: "red",
         width: 200,
     },
 });

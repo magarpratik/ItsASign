@@ -1,8 +1,17 @@
 import { useEffect, useState } from "react";
-import { Button, Image, View, TextInput, StyleSheet, Text } from "react-native";
+import {
+    Button,
+    Image,
+    View,
+    TextInput,
+    StyleSheet,
+    Text,
+    Pressable,
+} from "react-native";
 import { postUser } from "../utils/api";
 
 const SignUp = ({ navigation }) => {
+
     const [name, setName] = useState("");
     // just as username would conflict with context?
     const [usernameSignUp, setUsernameSignUp] = useState("");
@@ -19,6 +28,7 @@ const SignUp = ({ navigation }) => {
     const [isValidEmail, setIsValidEmail] = useState(true);
 
     const [isFirstLoad, setIsFirstLoad] = useState(true);
+    const [dbError, setDbError] = useState(null);
 
     const handleSignUp = (event) => {
         event.preventDefault();
@@ -45,28 +55,34 @@ const SignUp = ({ navigation }) => {
 
         if (usernameSignUpText.length < 4) {
             setIsValidUsername(false);
-            // } else if (!checkPasswordValid(passwordText)) {
-            //     setIsValidPassword(false);
+        } else if (!checkPasswordValid(passwordText)) {
+            setIsValidPassword(false);
         } else if (!checkEmailValid(emailText)) {
             setIsValidEmail(false);
-        } else {
-            console.log(usernameSignUp);
         }
 
         // send api request to make user
     };
     useEffect(() => {
-        console.log(name, usernameSignUp, password, email);
-        postUser(name, usernameSignUp, password, email).then((result) => {
-            if (result === "Registration Success") {
-                navigation.navigate("SignIn");
-            } else {
-                console.log("That failed for some reason.");
-            }
-        });
+        if (isFirstLoad) {
+            setIsFirstLoad(false);
+        } else {
+            postUser(name, usernameSignUp, password, email).then((result) => {
+                console.log(result);
+                if (result.success) {
+                    navigation.navigate("SignIn");
+                } else {
+                    console.log(result);
+                    if (result.status !== 400) setDbError(result.message);
+                    setPasswordText("");
+                    console.log(result.message);
+                }
+            });
+        }
     }, [name, usernameSignUp, password, email]);
     return (
         <View style={styles.container}>
+            <Text style={styles.title}>ItsASign!</Text>
             <TextInput
                 placeholder="Name"
                 style={styles.textInput}
@@ -79,7 +95,7 @@ const SignUp = ({ navigation }) => {
                 onChangeText={setUsernameSignUpText}
             />
             {isValidUsername ? null : (
-                <Text style={styles.text}>
+                <Text style={styles.errorText}>
                     Username should be longer than 4 characters.
                 </Text>
             )}
@@ -91,7 +107,7 @@ const SignUp = ({ navigation }) => {
                 onChangeText={setPasswordText}
             />
             {isValidPassword ? null : (
-                <Text style={styles.text}>
+                <Text style={styles.errorText}>
                     Password should be longer than 8 characters and contain a
                     mix of letters and numbers.
                 </Text>
@@ -103,39 +119,56 @@ const SignUp = ({ navigation }) => {
                 onChangeText={setEmailText}
             />
             {isValidEmail ? null : (
-                <Text style={styles.text}>Please enter a valid email.</Text>
+                <Text style={styles.errorText}>
+                    Please enter a valid email.
+                </Text>
             )}
-            <Button
-                style={styles.button}
-                color="green"
-                title="Create account"
+
+            <Pressable
+                style={styles.createButton}
                 onPress={(event) => {
                     handleSignUp(event);
                 }}
-            />
+            >
+                <Text>Create Account</Text>
+            </Pressable>
+            {dbError ? <Text style={styles.errorText}>{dbError}</Text> : null}
         </View>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-    },
+    display: "flex",
+    flex: 1,
+    flexDirection: "column",
+    alignItems: "center",
+    backgroundColor: "#78ba97",
+  },
     message: {},
-    button: {},
     image: { width: 200, height: 200 },
     textInput: {
-        height: 40,
-        borderColor: "gray",
-        borderWidth: 1,
+    height: 40,
+    borderColor: "gray",
+    borderWidth: 1,
+    width: 200,
+    padding: 5,
+    margin: 5,
+    backgroundColor: "white",
+  },
+    errorText: {
+        color: "red",
         width: 200,
     },
-    // text: {
-    //     fontSize: 8,
-    //     color: red,
-    // },
+    createButton: {
+        marginTop: 15,
+        backgroundColor: "white",
+        padding: 10,
+        borderRadius: 6,
+    },
+    title: {
+        fontSize: 50,
+    },
 });
 
 export default SignUp;
