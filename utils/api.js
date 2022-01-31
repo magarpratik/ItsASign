@@ -5,7 +5,6 @@ const signApi = axios.create({
 });
 
 export const postUser = (name, username, password, email) => {
-    console.log("here");
     return signApi
         .post("/api/users/signup", {
             username: username,
@@ -14,8 +13,18 @@ export const postUser = (name, username, password, email) => {
             confirmPassword: password,
         })
         .then((response) => {
-            console.log(response);
-            return response.data.message;
+            return response.data;
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+};
+
+export const getUser = (username) => {
+    return signApi
+        .get(`/api/users/${username}`)
+        .then((response) => {
+            return response.data.user;
         })
         .catch((err) => {
             console.log(err);

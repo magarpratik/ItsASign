@@ -1,6 +1,7 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 
 import { Button, Image, View, TextInput, StyleSheet, Text } from "react-native";
+import { getUser } from "../utils/api";
 import { UserContext } from "../utils/userContext";
 
 const SignIn = ({ navigation }) => {
@@ -10,10 +11,13 @@ const SignIn = ({ navigation }) => {
 
     const [isValidUsername, setIsValidUsername] = useState(true);
     const [isValidPassword, setIsValidPassword] = useState(true);
+    const [isFirstLoad, setIsFirstLoad] = useState(true);
 
     const { username, setUsername } = useContext(UserContext);
 
     const handleSignIn = () => {
+        setIsValidPassword(true);
+        setIsValidUsername(true);
         const checkPasswordValid = (text) => {
             return text.match(/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.{8,50})/) !== null;
         };
@@ -23,14 +27,32 @@ const SignIn = ({ navigation }) => {
 
         if (userText.length < 4) {
             setIsValidUsername(false);
-        } else if (!checkPasswordValid(passwordText)) {
-            setIsValidPassword(false);
-        } else {
-            navigation.navigate("HomePage");
+            // } else if (!checkPasswordValid(passwordText)) {
+            //     setIsValidPassword(false);
         }
 
         // send api request to make user
     };
+
+    useEffect(() => {
+        if (isFirstLoad) {
+            setIsFirstLoad(false);
+        } else {
+            getUser(username).then((result) => {
+                if (result) {
+                    // if backend is string
+                    if (result.password === password) {
+                        navigation.navigate("HomePage");
+                    } else {
+                        setIsValidPassword(false);
+                        console.log(result.message);
+                    }
+                } else {
+                    setIsValidUsername(false);
+                }
+            });
+        }
+    }, [username, password]);
 
     return (
         <View style={styles.container}>
@@ -56,9 +78,7 @@ const SignIn = ({ navigation }) => {
                 onChangeText={setUserText}
             />
             {isValidUsername ? null : (
-                <Text style={styles.text}>
-                    Username should be longer than 4 characters.
-                </Text>
+                <Text style={styles.text}>User does not exist.</Text>
             )}
             <TextInput
                 placeholder="Password"
@@ -67,10 +87,7 @@ const SignIn = ({ navigation }) => {
                 secureTextEntry={true}
             />
             {isValidPassword ? null : (
-                <Text style={styles.text}>
-                    Password should be longer than 8 characters and contain a
-                    mix of letters and numbers.
-                </Text>
+                <Text style={styles.text}>Incorrect password.</Text>
             )}
 
             <View style={styles.button}>
