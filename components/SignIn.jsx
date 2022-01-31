@@ -21,7 +21,8 @@ const SignIn = ({ navigation }) => {
     const [isValidPassword, setIsValidPassword] = useState(true);
     const [isFirstLoad, setIsFirstLoad] = useState(true);
 
-    const { username, setUsername } = useContext(UserContext);
+
+  const { username, setUsername } = useContext(UserContext);
 
     const handleSignIn = () => {
         setIsValidPassword(true);
@@ -113,24 +114,30 @@ const SignIn = ({ navigation }) => {
 
 const styles = StyleSheet.create({
     container: {
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-    },
+    display: "flex",
+    flex: 1,
+    flexDirection: "column",
+    alignItems: "center",
+    backgroundColor: "#78ba97",
+  },
     button: {
-        margin: 20,
-        backgroundColor: "green",
-        padding: 10,
-        borderRadius: 8,
-        color: "white",
-    },
-    image: { width: 300, height: 300 },
-    textInput: {
-        height: 40,
-        borderColor: "gray",
-        borderWidth: 1,
-        width: 200,
-    },
+    marginTop: 20,
+    backgroundColor: "#56a996",
+    margin: 20,
+    borderRadius: 10,
+    width: 150,
+  },
+    
+  image: { width: 300, height: 300 },
+  textInput: {
+    height: 40,
+    borderColor: "gray",
+    borderWidth: 1,
+    width: 200,
+    padding: 5,
+    margin: 5,
+    backgroundColor: "white",
+  },
     buttonText: {
         color: "white",
     },

@@ -11,6 +11,7 @@ import {
 import { postUser } from "../utils/api";
 
 const SignUp = ({ navigation }) => {
+
     const [name, setName] = useState("");
     // just as username would conflict with context?
     const [usernameSignUp, setUsernameSignUp] = useState("");
@@ -138,20 +139,23 @@ const SignUp = ({ navigation }) => {
 
 const styles = StyleSheet.create({
     container: {
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        paddingTop: 50,
-    },
+    display: "flex",
+    flex: 1,
+    flexDirection: "column",
+    alignItems: "center",
+    backgroundColor: "#78ba97",
+  },
     message: {},
     image: { width: 200, height: 200 },
     textInput: {
-        height: 40,
-        borderColor: "gray",
-        borderWidth: 1,
-        width: 200,
-        marginTop: 15,
-    },
+    height: 40,
+    borderColor: "gray",
+    borderWidth: 1,
+    width: 200,
+    padding: 5,
+    margin: 5,
+    backgroundColor: "white",
+  },
     errorText: {
         color: "red",
         width: 200,

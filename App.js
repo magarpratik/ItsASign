@@ -18,94 +18,108 @@ const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
 
 function DrawerNavigator({ navigation: { navigate } }) {
-    const profileImgLink = (
-        <TouchableOpacity onPress={() => navigate("Profile")}>
-            <Image
-                source={{
-                    uri: "https://api.multiavatar.com/helloworld.png",
-                }}
-                style={styles.image}
-            />
-        </TouchableOpacity>
-    );
-    return (
-        <Drawer.Navigator
-            initialRouteName="Home"
-            drawerContent={(props) => <CustomDrawer {...props} />}
-            screenOptions={{
-                drawerActiveBackgroundColor: "#1d5e1e",
-                drawerActiveTintColor: "yellow",
-                drawerLabelStyle: {
-                    fontFamily: "Roboto-Medium",
-                    fontSize: 20,
-                },
-            }}
-        >
-            <Drawer.Screen
-                name="Home"
-                component={Home}
-                options={{
-                    headerRight: () => profileImgLink,
-                }}
-            />
-            <Drawer.Screen
-                name="Profile"
-                component={Profile}
-                options={{
-                    headerRight: () => profileImgLink,
-                }}
-            />
-            <Drawer.Screen
-                name="Leaderboard"
-                component={Leaderboard}
-                options={{
-                    headerRight: () => profileImgLink,
-                }}
-            />
-            <Drawer.Screen
-                name="Settings"
-                component={Settings}
-                options={{
-                    headerRight: () => profileImgLink,
-                }}
-            />
-        </Drawer.Navigator>
-    );
+  const profileImgLink = (
+    <TouchableOpacity onPress={() => navigate("Profile")}>
+      <Image
+        source={{
+          uri: "https://api.multiavatar.com/helloworld.png",
+        }}
+        style={styles.image}
+      />
+    </TouchableOpacity>
+  );
+  return (
+    <Drawer.Navigator
+      initialRouteName="Home"
+      drawerContent={(props) => <CustomDrawer {...props} />}
+      screenOptions={{
+        drawerActiveBackgroundColor: "#1d5e1e",
+        drawerActiveTintColor: "yellow",
+        drawerLabelStyle: {
+          fontFamily: "Roboto-Medium",
+          fontSize: 20,
+        },
+      }}
+    >
+      <Drawer.Screen
+        name="Home"
+        component={Home}
+        options={{
+          headerRight: () => profileImgLink,
+        }}
+      />
+      <Drawer.Screen
+        name="Profile"
+        component={Profile}
+        options={{
+          headerRight: () => profileImgLink,
+        }}
+      />
+      <Drawer.Screen
+        name="Leaderboard"
+        component={Leaderboard}
+        options={{
+          headerRight: () => profileImgLink,
+        }}
+      />
+      <Drawer.Screen
+        name="Settings"
+        component={Settings}
+        options={{
+          headerRight: () => profileImgLink,
+        }}
+      />
+    </Drawer.Navigator>
+  );
 }
 
 export default function App() {
-    const [username, setUsername] = React.useState("John Smith");
-    console.log(username);
-    return (
-        <UserContext.Provider value={{ username, setUsername }}>
-            <NavigationContainer>
-                <Stack.Navigator>
-                    <Stack.Screen
-                        name="SignIn"
-                        component={SignIn}
-                        options={{ title: "Sign in Screen" }}
-                    />
-                    <Stack.Screen
-                        name="SignUp"
-                        component={SignUp}
-                        options={{ title: "Sign up Screen" }}
-                    />
-                    <Stack.Screen
-                        name="HomePage"
-                        component={DrawerNavigator}
-                        options={{ headerShown: false }}
-                    />
-                    <Stack.Screen
-                        name="Lesson"
-                        component={LessonThenQuiz}
-                        options={{ headerShown: false }}
-                    />
-                </Stack.Navigator>
-            </NavigationContainer>
-        </UserContext.Provider>
-    );
+  const [username, setUsername] = React.useState("John Smith");
+  console.log(username);
+  return (
+    <UserContext.Provider value={{ username, setUsername }}>
+      <NavigationContainer>
+        <Stack.Navigator
+          screenOptions={{ cardStyle: { backgroundColor: "#78ba97" } }}
+        >
+          <Stack.Screen
+            name="SignIn"
+            component={SignIn}
+            options={{
+              title: "Sign In ",
+              headerStyle: { backgroundColor: "#3d9891" },
+              headerTitleStyle: {
+                color: "#fff",
+              },
+            }}
+          />
+          <Stack.Screen
+            name="SignUp"
+            component={SignUp}
+            options={{
+              title: "Sign Up",
+              headerStyle: { backgroundColor: "#3d9891" },
+              headerTitleStyle: {
+                color: "#fff",
+              },
+            }}
+          />
+          <Stack.Screen
+            name="HomePage"
+            component={DrawerNavigator}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Lesson"
+            component={LessonThenQuiz}
+            options={{ headerShown: false }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </UserContext.Provider>
+  );
 }
 
 const styles = StyleSheet.create({
-    image: { width: 50, height: 50, marginRight: 10 },
+  image: { width: 50, height: 50, marginRight: 10 },
 });
