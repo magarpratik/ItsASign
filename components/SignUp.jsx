@@ -1,5 +1,13 @@
 import { useEffect, useState } from "react";
-import { Button, Image, View, TextInput, StyleSheet, Text } from "react-native";
+import {
+    Button,
+    Image,
+    View,
+    TextInput,
+    StyleSheet,
+    Text,
+    Pressable,
+} from "react-native";
 import { postUser } from "../utils/api";
 
 const SignUp = ({ navigation }) => {
@@ -59,10 +67,13 @@ const SignUp = ({ navigation }) => {
             setIsFirstLoad(false);
         } else {
             postUser(name, usernameSignUp, password, email).then((result) => {
+                console.log(result);
                 if (result.success) {
                     navigation.navigate("SignIn");
                 } else {
-                    setDbError(result.message);
+                    console.log(result);
+                    if (result.status !== 400) setDbError(result.message);
+                    setPasswordText("");
                     console.log(result.message);
                 }
             });
@@ -108,14 +119,15 @@ const SignUp = ({ navigation }) => {
             {isValidEmail ? null : (
                 <Text style={styles.text}>Please enter a valid email.</Text>
             )}
-            <Button
-                style={styles.button}
-                color="green"
-                title="Create account"
+
+            <Pressable
+                style={styles.createButton}
                 onPress={(event) => {
                     handleSignUp(event);
                 }}
-            />
+            >
+                <Text>Create Account</Text>
+            </Pressable>
             {dbError ? <Text>{dbError}</Text> : null}
         </View>
     );
@@ -126,20 +138,26 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
+        paddingTop: 50,
     },
     message: {},
-    button: {},
     image: { width: 200, height: 200 },
     textInput: {
         height: 40,
         borderColor: "gray",
         borderWidth: 1,
         width: 200,
+        marginTop: 15,
     },
-    // text: {
-    //     fontSize: 8,
-    //     color: red,
-    // },
+    text: {
+        color: "red",
+    },
+    createButton: {
+        marginTop: 15,
+        backgroundColor: "white",
+        padding: 10,
+        borderRadius: 6,
+    },
 });
 
 export default SignUp;
