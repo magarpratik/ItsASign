@@ -9,7 +9,7 @@ import {
     Text,
     Pressable,
 } from "react-native";
-import { getUser } from "../utils/api";
+import { getUser, signIn } from "../utils/api";
 import { UserContext } from "../utils/userContext";
 
 const SignIn = ({ navigation }) => {
@@ -46,7 +46,7 @@ const SignIn = ({ navigation }) => {
         if (isFirstLoad) {
             setIsFirstLoad(false);
         } else {
-            getUser(username).then((result) => {
+            signIn(username, password).then((result) => {
                 if (result) {
                     // if backend is string
                     if (result.successful) {

@@ -20,13 +20,15 @@ export const postUser = (name, username, password, email) => {
         });
 };
 
-export const getUser = (username) => {
+export const signIn = (username, password) => {
+    console.log("in api call");
     return signApi
-        .get(`/api/users/${username}`)
+        .post(`/api/sign_in`, { username, password })
         .then((response) => {
-            return response.data.user;
+            console.log("non error", response);
+            return response.data.successful;
         })
         .catch((err) => {
-            console.log(err);
+            console.log("error", err);
         });
 };
