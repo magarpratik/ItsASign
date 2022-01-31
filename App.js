@@ -94,6 +94,7 @@ export default function App() {
                         name="HomePage"
                         component={DrawerNavigator}
                         options={{ headerShown: false }}
+                        value={username}
                     />
                     <Stack.Screen
                         name="Lesson"

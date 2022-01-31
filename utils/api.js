@@ -32,3 +32,9 @@ export const getLessons = (course_topic) => {
       console.log(err);
     });
 };
+
+export const getLessonsCompleted = (username) => {
+  return signApi.get(`api/users/${username}/progress`).then((response) => {
+    return response.data.progress;
+  });
+};
