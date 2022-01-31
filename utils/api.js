@@ -31,6 +31,21 @@ export const getUser = (username) => {
     });
 };
 
+export const getLessons = (course_topic) => {
+  return signApi
+    .get("/api/courses/alpha")
+    .then((response) => {
+      return response.data.courses;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+export const getLessonsCompleted = (username) => {
+  return signApi.get(`api/users/${username}/progress`).then((response) => {
+    return response.data.progress;
+  });
 export const signIn = (username, password) => {
   return signApi
     .get(`api/sign_in/?username=${username}&password=${password}`)
