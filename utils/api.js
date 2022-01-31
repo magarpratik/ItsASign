@@ -30,3 +30,11 @@ export const getUser = (username) => {
             console.log(err);
         });
 };
+
+export const getLessons = (course_topic) => {
+    return signApi.get("/api/courses/alpha").then((response) => {
+        return response.data.courses;
+    }).catch((err) => {
+        console.log(err);
+    });
+}
