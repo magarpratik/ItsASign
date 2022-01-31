@@ -14,14 +14,15 @@ import Badges from "./Badges";
 
 const Home = ({ navigation: { navigate } }) => {
   const { username } = React.useContext(UserContext);
+  console.log(username);
 
   const [testLessons, setTestLessons] = useState([{ course_topic: "test" }]);
-  const [completedLessons, setCompletedLessons] = useState([]);
+  const [completedLessons, setCompletedLessons] = useState([1]);
 
   useEffect(() => {
     getLessons().then((lessons) => setTestLessons(lessons));
     getLessonsCompleted(username).then((response) => {
-      setCompletedLessons(response.completed_lessons);
+      // setCompletedLessons(response.completed_lessons);
     });
   }, [testLessons[0].course_topic, completedLessons.length]);
 
@@ -51,8 +52,9 @@ const Home = ({ navigation: { navigate } }) => {
   const renderItem = ({ item }) => (
     <Item
       title={`Lesson ${item.lesson_number}`}
+      
       id={item._id}
-      locked={completedLessons.includes(item.lesson_number)}
+      locked={!completedLessons.includes(item.lesson_number)}
     />
   );
 
@@ -62,7 +64,7 @@ const Home = ({ navigation: { navigate } }) => {
       <FlatList
         data={testLessons}
         renderItem={renderItem}
-        keyExtractor={(item) => item._id}
+        keyExtractor={(item, index) => index.toString()}
         style={{
           height: "60%",
           backgroundColor: "eggshell",
