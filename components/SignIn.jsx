@@ -92,7 +92,7 @@ const SignIn = ({ navigation }) => {
                 onChangeText={setUserText}
             />
             {isValidUsername ? null : (
-                <Text style={styles.text}>User does not exist.</Text>
+                <Text style={styles.errorText}>User does not exist.</Text>
             )}
             <TextInput
                 placeholder="Password"
@@ -101,7 +101,7 @@ const SignIn = ({ navigation }) => {
                 secureTextEntry={true}
             />
             {isValidPassword ? null : (
-                <Text style={styles.text}>Incorrect password.</Text>
+                <Text style={styles.errorText}>Incorrect password.</Text>
             )}
 
             <Pressable style={styles.button} onPress={handleSignIn}>
@@ -133,6 +133,10 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         color: "white",
+    },
+    errorText: {
+        color: "red",
+        width: 200,
     },
 });
 

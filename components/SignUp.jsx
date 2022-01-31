@@ -94,7 +94,7 @@ const SignUp = ({ navigation }) => {
                 onChangeText={setUsernameSignUpText}
             />
             {isValidUsername ? null : (
-                <Text style={styles.text}>
+                <Text style={styles.errorText}>
                     Username should be longer than 4 characters.
                 </Text>
             )}
@@ -106,7 +106,7 @@ const SignUp = ({ navigation }) => {
                 onChangeText={setPasswordText}
             />
             {isValidPassword ? null : (
-                <Text style={styles.text}>
+                <Text style={styles.errorText}>
                     Password should be longer than 8 characters and contain a
                     mix of letters and numbers.
                 </Text>
@@ -118,7 +118,9 @@ const SignUp = ({ navigation }) => {
                 onChangeText={setEmailText}
             />
             {isValidEmail ? null : (
-                <Text style={styles.text}>Please enter a valid email.</Text>
+                <Text style={styles.errorText}>
+                    Please enter a valid email.
+                </Text>
             )}
 
             <Pressable
@@ -129,7 +131,7 @@ const SignUp = ({ navigation }) => {
             >
                 <Text>Create Account</Text>
             </Pressable>
-            {dbError ? <Text>{dbError}</Text> : null}
+            {dbError ? <Text style={styles.errorText}>{dbError}</Text> : null}
         </View>
     );
 };
@@ -150,7 +152,7 @@ const styles = StyleSheet.create({
         width: 200,
         marginTop: 15,
     },
-    text: {
+    errorText: {
         color: "red",
         width: 200,
     },
