@@ -45,12 +45,10 @@ const SignUp = ({ navigation }) => {
 
         if (usernameSignUpText.length < 4) {
             setIsValidUsername(false);
-            // } else if (!checkPasswordValid(passwordText)) {
-            //     setIsValidPassword(false);
+        } else if (!checkPasswordValid(passwordText)) {
+            setIsValidPassword(false);
         } else if (!checkEmailValid(emailText)) {
             setIsValidEmail(false);
-        } else {
-            console.log(usernameSignUp);
         }
 
         // send api request to make user

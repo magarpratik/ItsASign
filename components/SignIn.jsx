@@ -27,8 +27,8 @@ const SignIn = ({ navigation }) => {
 
         if (userText.length < 4) {
             setIsValidUsername(false);
-            // } else if (!checkPasswordValid(passwordText)) {
-            //     setIsValidPassword(false);
+        } else if (!checkPasswordValid(passwordText)) {
+            setIsValidPassword(false);
         }
 
         // send api request to make user
