@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Image, View, TextInput, StyleSheet, Text } from "react-native";
-import { set } from "react-native-reanimated";
+import { postUser } from "../utils/api";
 
 const SignUp = ({ navigation }) => {
     const [name, setName] = useState("");
@@ -18,7 +18,15 @@ const SignUp = ({ navigation }) => {
     const [isValidPassword, setIsValidPassword] = useState(true);
     const [isValidEmail, setIsValidEmail] = useState(true);
 
-    const handleSignUp = () => {
+    const [isFirstLoad, setIsFirstLoad] = useState(true);
+
+    const handleSignUp = (event) => {
+        event.preventDefault();
+        setIsFirstLoad(false);
+        setIsValidEmail(true);
+        setIsValidPassword(true);
+        setIsValidUsername(true);
+
         const checkPasswordValid = (text) => {
             return text.match(/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.{8,50})/) !== null;
         };
@@ -37,17 +45,26 @@ const SignUp = ({ navigation }) => {
 
         if (usernameSignUpText.length < 4) {
             setIsValidUsername(false);
-        } else if (!checkPasswordValid(passwordText)) {
-            setIsValidPassword(false);
+            // } else if (!checkPasswordValid(passwordText)) {
+            //     setIsValidPassword(false);
         } else if (!checkEmailValid(emailText)) {
             setIsValidEmail(false);
         } else {
-            navigation.navigate("SignIn");
+            console.log(usernameSignUp);
         }
 
         // send api request to make user
     };
-
+    useEffect(() => {
+        console.log(name, usernameSignUp, password, email);
+        postUser(name, usernameSignUp, password, email).then((result) => {
+            if (result === "Registration Success") {
+                navigation.navigate("SignIn");
+            } else {
+                console.log("That failed for some reason.");
+            }
+        });
+    }, [name, usernameSignUp, password, email]);
     return (
         <View style={styles.container}>
             <TextInput
@@ -92,8 +109,9 @@ const SignUp = ({ navigation }) => {
                 style={styles.button}
                 color="green"
                 title="Create account"
-                onPress={handleSignUp}
-                onChangeText={setPasswordText}
+                onPress={(event) => {
+                    handleSignUp(event);
+                }}
             />
         </View>
     );
