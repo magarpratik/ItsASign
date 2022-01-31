@@ -10,18 +10,22 @@ import {
 } from "react-native";
 import { UserContext } from "../utils/userContext";
 import Badges from "./Badges";
-import { getLessons } from "../utils/api";
+import { getLessons, getLessonsCompleted } from "../utils/api";
 
 const Home = ({ navigation: { navigate } }) => {
-  // const { username } = React.useContext(UserContext);
-  // console.log(username);
+  const { username } = React.useContext(UserContext);
+
   const [lessons, setLessons] = useState([{ course_topic: "test" }]);
+  const [completedLessons, setCompletedLessons] = useState([]);
 
   useEffect(() => {
     getLessons().then((lessonsArray) => {
       setLessons(lessonsArray);
     });
-  }, [lessons[0].course_topic]);
+    getLessonsCompleted(username).then((response) => {
+      setCompletedLessons(response.completed_lessons);
+    });
+  }, [lessons[0].course_topic, completedLessons.length]);
 
   const Item = ({ title, id, locked }) => (
     <Pressable
@@ -47,7 +51,7 @@ const Home = ({ navigation: { navigate } }) => {
   );
 
   const renderItem = ({ item }) => (
-    <Item title={`Lesson ${item.lesson_number}`} id={item._id} locked={false} />
+    <Item title={`Lesson ${item.lesson_number}`} id={item._id} locked={!completedLessons.includes(item.lesson_number)} />
   );
 
   return (
