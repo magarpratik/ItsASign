@@ -43,7 +43,7 @@ const CustomDrawer = (props) => {
                         style={{
                             color: "#fff",
                             fontSize: 18,
-                            fontFamily: "Roboto-Medium",
+                            // fontFamily: "Roboto-Medium",
                             marginLeft: 25,
                         }}
                     >
@@ -72,7 +72,7 @@ const CustomDrawer = (props) => {
                     <Text
                         style={{
                             fontSize: 20,
-                            fontFamily: "Roboto-Medium",
+                            // fontFamily: "Roboto-Medium",
                             marginLeft: 5,
                         }}
                     >

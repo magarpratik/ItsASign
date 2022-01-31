@@ -36,7 +36,7 @@ function DrawerNavigator({ navigation: { navigate } }) {
         drawerActiveBackgroundColor: "#1d5e1e",
         drawerActiveTintColor: "yellow",
         drawerLabelStyle: {
-          fontFamily: "Roboto-Medium",
+          // fontFamily: "Roboto-Medium",
           fontSize: 20,
         },
       }}
