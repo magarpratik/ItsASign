@@ -15,7 +15,7 @@ export const postUser = (name, username, password, email) => {
         })
         .then((response) => {
             console.log(response);
-            return response.data.message;
+            return response.data;
         })
         .catch((err) => {
             console.log(err);

@@ -58,10 +58,10 @@ const SignUp = ({ navigation }) => {
     useEffect(() => {
         console.log(name, usernameSignUp, password, email);
         postUser(name, usernameSignUp, password, email).then((result) => {
-            if (result === "Registration Success") {
+            if (result.success) {
                 navigation.navigate("SignIn");
             } else {
-                console.log("That failed for some reason.");
+                console.log(result.message);
             }
         });
     }, [name, usernameSignUp, password, email]);
