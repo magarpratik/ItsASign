@@ -19,6 +19,7 @@ const SignUp = ({ navigation }) => {
     const [isValidEmail, setIsValidEmail] = useState(true);
 
     const [isFirstLoad, setIsFirstLoad] = useState(true);
+    const [dbError, setDbError] = useState(null);
 
     const handleSignUp = (event) => {
         event.preventDefault();
@@ -54,13 +55,18 @@ const SignUp = ({ navigation }) => {
         // send api request to make user
     };
     useEffect(() => {
-        postUser(name, usernameSignUp, password, email).then((result) => {
-            if (result.success) {
-                navigation.navigate("SignIn");
-            } else {
-                console.log(result.message);
-            }
-        });
+        if (isFirstLoad) {
+            setIsFirstLoad(false);
+        } else {
+            postUser(name, usernameSignUp, password, email).then((result) => {
+                if (result.success) {
+                    navigation.navigate("SignIn");
+                } else {
+                    setDbError(result.message);
+                    console.log(result.message);
+                }
+            });
+        }
     }, [name, usernameSignUp, password, email]);
     return (
         <View style={styles.container}>
@@ -110,6 +116,7 @@ const SignUp = ({ navigation }) => {
                     handleSignUp(event);
                 }}
             />
+            {dbError ? <Text>{dbError}</Text> : null}
         </View>
     );
 };
