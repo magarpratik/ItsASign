@@ -51,7 +51,11 @@ const Home = ({ navigation: { navigate } }) => {
   );
 
   const renderItem = ({ item }) => (
-    <Item title={`Lesson ${item.lesson_number}`} id={item._id} locked={!completedLessons.includes(item.lesson_number)} />
+    <Item
+      title={`Lesson ${item.lesson_number}`}
+      id={item._id}
+      locked={!completedLessons.includes(item.lesson_number)}
+    />
   );
 
   return (
