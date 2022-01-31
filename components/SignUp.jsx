@@ -56,7 +56,6 @@ const SignUp = ({ navigation }) => {
         // send api request to make user
     };
     useEffect(() => {
-        console.log(name, usernameSignUp, password, email);
         postUser(name, usernameSignUp, password, email).then((result) => {
             if (result.success) {
                 navigation.navigate("SignIn");
