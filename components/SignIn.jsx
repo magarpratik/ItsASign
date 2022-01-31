@@ -1,6 +1,14 @@
 import { useState, useContext, useEffect } from "react";
 
-import { Button, Image, View, TextInput, StyleSheet, Text } from "react-native";
+import {
+    Button,
+    Image,
+    View,
+    TextInput,
+    StyleSheet,
+    Text,
+    Pressable,
+} from "react-native";
 import { getUser } from "../utils/api";
 import { UserContext } from "../utils/userContext";
 
@@ -62,7 +70,7 @@ const SignIn = ({ navigation }) => {
                 }}
                 style={styles.image}
             />
-            <View style={styles.button}>
+            {/* <View style={styles.button}>
                 <Button
                     color="green"
                     title="Sign up!"
@@ -70,7 +78,13 @@ const SignIn = ({ navigation }) => {
                         navigation.navigate("SignUp", { name: "Jane" })
                     }
                 />
-            </View>
+            </View> */}
+            <Pressable
+                onPress={() => navigation.navigate("SignUp", { name: "Jane" })}
+                style={styles.button}
+            >
+                <Text style={styles.buttonText}>Sign up!</Text>
+            </Pressable>
 
             <TextInput
                 placeholder="Username"
@@ -78,7 +92,7 @@ const SignIn = ({ navigation }) => {
                 onChangeText={setUserText}
             />
             {isValidUsername ? null : (
-                <Text style={styles.text}>User does not exist.</Text>
+                <Text style={styles.errorText}>User does not exist.</Text>
             )}
             <TextInput
                 placeholder="Password"
@@ -87,12 +101,12 @@ const SignIn = ({ navigation }) => {
                 secureTextEntry={true}
             />
             {isValidPassword ? null : (
-                <Text style={styles.text}>Incorrect password.</Text>
+                <Text style={styles.errorText}>Incorrect password.</Text>
             )}
 
-            <View style={styles.button}>
-                <Button color="green" title="Sign in" onPress={handleSignIn} />
-            </View>
+            <Pressable style={styles.button} onPress={handleSignIn}>
+                <Text style={styles.buttonText}>Sign in</Text>
+            </Pressable>
         </View>
     );
 };
@@ -103,12 +117,25 @@ const styles = StyleSheet.create({
         flexDirection: "column",
         alignItems: "center",
     },
-    button: { marginTop: 20 },
+    button: {
+        margin: 20,
+        backgroundColor: "green",
+        padding: 10,
+        borderRadius: 8,
+        color: "white",
+    },
     image: { width: 300, height: 300 },
     textInput: {
         height: 40,
         borderColor: "gray",
         borderWidth: 1,
+        width: 200,
+    },
+    buttonText: {
+        color: "white",
+    },
+    errorText: {
+        color: "red",
         width: 200,
     },
 });
