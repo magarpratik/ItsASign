@@ -83,7 +83,6 @@ const SignIn = ({ navigation }) => {
         <Text style={styles.errorText}>Incorrect password.</Text>
       )}
 
-
       <Pressable style={styles.button} onPress={handleSignIn}>
         <Text style={styles.buttonText}>Sign in</Text>
       </Pressable>
@@ -96,18 +95,6 @@ const SignIn = ({ navigation }) => {
       </Pressable>
     </View>
   );
-
-            <Pressable
-                style={styles.button}
-                onPress={() =>
-                    navigation.navigate("HomePage", { name: "Jane" })
-                }
-            >
-                <Text style={styles.buttonText}>Home page</Text>
-            </Pressable>
-        </View>
-    );
-
 };
 
 const styles = StyleSheet.create({
@@ -127,7 +114,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
 
-  image: {},
+  image: { height: 270, width: 380, marginVertical: 10, borderRadius: 10 },
   textInput: {
     height: 40,
     borderColor: "#004346",
