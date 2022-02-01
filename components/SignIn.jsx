@@ -9,7 +9,7 @@ import {
     Text,
     Pressable,
 } from "react-native";
-import { getUser } from "../utils/api";
+import { getUser, signIn } from "../utils/api";
 import { UserContext } from "../utils/userContext";
 
 const SignIn = ({ navigation }) => {
@@ -39,26 +39,25 @@ const SignIn = ({ navigation }) => {
             setIsValidPassword(false);
         }
 
-        // send api request to make user
+        signIn(userText, passwordText)
+            .then((res) => {
+                console.log(res);
+                if (res.successful === true) {
+                    navigation.navigate("HomePage");
+                } else {
+                    setIsValidPassword(false);
+                    setIsValidUsername(false);
+                    console.log(res.message);
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     };
 
     useEffect(() => {
         if (isFirstLoad) {
             setIsFirstLoad(false);
-        } else {
-            getUser(username).then((result) => {
-                if (result) {
-                    // if backend is string
-                    if (result.successful) {
-                        navigation.navigate("HomePage");
-                    } else {
-                        setIsValidPassword(false);
-                        console.log(result.message);
-                    }
-                } else {
-                    setIsValidUsername(false);
-                }
-            });
         }
     }, [username, password]);
 
@@ -70,21 +69,6 @@ const SignIn = ({ navigation }) => {
                 }}
                 style={styles.image}
             />
-            {/* <View style={styles.button}>
-                <Button
-                    color="green"
-                    title="Sign up!"
-                    onPress={() =>
-                        navigation.navigate("SignUp", { name: "Jane" })
-                    }
-                />
-            </View> */}
-            <Pressable
-                onPress={() => navigation.navigate("SignUp", { name: "Jane" })}
-                style={styles.button}
-            >
-                <Text style={styles.buttonText}>Sign up!</Text>
-            </Pressable>
 
             <TextInput
                 placeholder="Username"
@@ -107,6 +91,21 @@ const SignIn = ({ navigation }) => {
             <Pressable style={styles.button} onPress={handleSignIn}>
                 <Text style={styles.buttonText}>Sign in</Text>
             </Pressable>
+            <Text>====================================</Text>
+            <Pressable
+                onPress={() => navigation.navigate("SignUp", { name: "Jane" })}
+                style={styles.button}
+            >
+                <Text style={styles.buttonText}>Sign up!</Text>
+            </Pressable>
+            {/* <Pressable
+                style={styles.button}
+                onPress={() =>
+                    navigation.navigate("HomePage", { name: "Jane" })
+                }
+            >
+                <Text style={styles.buttonText}>Home page</Text>
+            </Pressable> */}
         </View>
     );
 };
@@ -114,25 +113,33 @@ const SignIn = ({ navigation }) => {
 const styles = StyleSheet.create({
     container: {
         display: "flex",
+        flex: 1,
         flexDirection: "column",
         alignItems: "center",
+        backgroundColor: "#F0F7F4",
     },
     button: {
+        marginTop: 20,
+        backgroundColor: "#004346",
         margin: 20,
-        backgroundColor: "green",
-        padding: 10,
-        borderRadius: 8,
-        color: "white",
+        borderRadius: 10,
+        paddingVertical: 5,
+        paddingHorizontal: 20,
     },
-    image: { width: 300, height: 300 },
+
+    image: { width: 300, height: 300, marginVertical: 10, borderRadius: 10 },
     textInput: {
         height: 40,
-        borderColor: "gray",
+        borderColor: "#004346",
         borderWidth: 1,
         width: 200,
+        padding: 5,
+        margin: 5,
+        backgroundColor: "white",
     },
     buttonText: {
         color: "white",
+        alignSelf: "center",
     },
     errorText: {
         color: "red",
