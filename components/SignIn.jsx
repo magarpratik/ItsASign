@@ -83,6 +83,7 @@ const SignIn = ({ navigation }) => {
         <Text style={styles.errorText}>Incorrect password.</Text>
       )}
 
+
       <Pressable style={styles.button} onPress={handleSignIn}>
         <Text style={styles.buttonText}>Sign in</Text>
       </Pressable>
@@ -95,6 +96,18 @@ const SignIn = ({ navigation }) => {
       </Pressable>
     </View>
   );
+
+            <Pressable
+                style={styles.button}
+                onPress={() =>
+                    navigation.navigate("HomePage", { name: "Jane" })
+                }
+            >
+                <Text style={styles.buttonText}>Home page</Text>
+            </Pressable>
+        </View>
+    );
+
 };
 
 const styles = StyleSheet.create({
