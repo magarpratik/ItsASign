@@ -11,7 +11,6 @@ import {
 import { postUser } from "../utils/api";
 
 const SignUp = ({ navigation }) => {
-
     const [name, setName] = useState("");
     // just as username would conflict with context?
     const [usernameSignUp, setUsernameSignUp] = useState("");
@@ -130,7 +129,7 @@ const SignUp = ({ navigation }) => {
                     handleSignUp(event);
                 }}
             >
-                <Text>Create Account</Text>
+                <Text style={styles.buttonText}>Create Account</Text>
             </Pressable>
             {dbError ? <Text style={styles.errorText}>{dbError}</Text> : null}
         </View>
@@ -139,35 +138,42 @@ const SignUp = ({ navigation }) => {
 
 const styles = StyleSheet.create({
     container: {
-    display: "flex",
-    flex: 1,
-    flexDirection: "column",
-    alignItems: "center",
-    backgroundColor: "#78ba97",
-  },
+        display: "flex",
+        flex: 1,
+        flexDirection: "column",
+        alignItems: "center",
+        backgroundColor: "#F0F7F4",
+    },
     message: {},
     image: { width: 200, height: 200 },
     textInput: {
-    height: 40,
-    borderColor: "gray",
-    borderWidth: 1,
-    width: 200,
-    padding: 5,
-    margin: 5,
-    backgroundColor: "white",
-  },
+        height: 40,
+        borderColor: "#004346",
+        borderWidth: 1,
+        width: 200,
+        padding: 5,
+        margin: 5,
+        backgroundColor: "white",
+    },
     errorText: {
         color: "red",
         width: 200,
     },
     createButton: {
         marginTop: 15,
-        backgroundColor: "white",
-        padding: 10,
-        borderRadius: 6,
+        backgroundColor: "#004346",
+        borderRadius: 10,
+        paddingVertical: 5,
+        paddingHorizontal: 20,
+        color: "white",
     },
     title: {
         fontSize: 50,
+        color: "#002729",
+    },
+    buttonText: {
+        color: "white",
+        alignSelf: "center",
     },
 });
 
