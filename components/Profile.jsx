@@ -4,6 +4,7 @@ import { Bar } from "react-native-progress";
 import { UserContext } from "../utils/userContext";
 import Badges from "./Badges";
 import React from "react";
+import { avatar1 } from "../assets/avatars/avatar1.png";
 
 const Profile = () => {
   const { username } = React.useContext(UserContext);
@@ -21,12 +22,7 @@ const Profile = () => {
 
   return (
     <View style={styles.container}>
-      <Image
-        source={{
-          uri: "https://api.multiavatar.com/helloworld.png",
-        }}
-        style={styles.image}
-      />
+      <Image source={{ avatar1 }} style={styles.image} />
       <Text>{username}</Text>
       <View style={styles.bar}>
         <Bar progress={progress} width={250} height={20} />
