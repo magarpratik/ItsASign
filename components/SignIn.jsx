@@ -98,14 +98,14 @@ const SignIn = ({ navigation }) => {
             >
                 <Text style={styles.buttonText}>Sign up!</Text>
             </Pressable>
-            {/* <Pressable
+            <Pressable
                 style={styles.button}
                 onPress={() =>
                     navigation.navigate("HomePage", { name: "Jane" })
                 }
             >
                 <Text style={styles.buttonText}>Home page</Text>
-            </Pressable> */}
+            </Pressable>
         </View>
     );
 };
