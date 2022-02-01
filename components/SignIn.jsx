@@ -41,13 +41,14 @@ const SignIn = ({ navigation }) => {
 
     signIn(userText, passwordText)
       .then((res) => {
-        console.log(res);
+        console.log(res.status);
+
         if (res.successful === true) {
           navigation.navigate("HomePage");
-        } else {
-          setIsValidPassword(false);
+        } else if (res.status === 404) {
           setIsValidUsername(false);
-          console.log(res.message);
+        } else if (res.status === 401) {
+          setIsValidPassword(false);
         }
       })
       .catch((err) => {

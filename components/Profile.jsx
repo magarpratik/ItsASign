@@ -1,13 +1,21 @@
 import { useEffect, useState, useContext } from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, View, Button } from "react-native";
 import { Bar } from "react-native-progress";
 import { UserContext } from "../utils/userContext";
 import Badges from "./Badges";
 import React from "react";
-import { avatar1 } from "../assets/avatars/avatar1.png";
+import {
+  avatar1,
+  avatar2,
+  avatar3,
+  avatar4,
+  avatar5,
+  avatar6,
+  avatar7,
+} from "../assets/avatars/avatars-export";
 
 const Profile = () => {
-  const { username } = React.useContext(UserContext);
+  const { username, picture } = React.useContext(UserContext);
   const [level, setLevel] = useState(0);
   const [progress, setProgress] = useState(0);
   const [totalXP, setTotalXP] = useState(0);
@@ -20,9 +28,22 @@ const Profile = () => {
     setProgress((totalXP % 100) / 100);
   }, [totalXP]);
 
+  const [avatarX, setAvatarX] = useState(picture);
+  let counter = 1;
+  const nextAvatar = () => {
+    if (counter < 8) {
+      counter += 1;
+      setAvatarX(`avatar${counter}`);
+    } else {
+      counter = 1;
+      setAvatarX(picture);
+    }
+  };
+
   return (
     <View style={styles.container}>
-      <Image source={{ avatar1 }} style={styles.image} />
+      <Image source={avatarX} style={styles.image} />
+      <Button title=">>" onPress={nextAvatar} />
       <Text>{username}</Text>
       <View style={styles.bar}>
         <Bar progress={progress} width={250} height={20} />
