@@ -15,6 +15,7 @@ import { getLessons, getLessonsCompleted } from "../utils/api";
 
 const Home = ({ navigation: { navigate } }) => {
   const { username } = React.useContext(UserContext);
+
   const { isLoading, setIsLoading } = React.useContext(LoadingContext);
 
   const [lessons, setLessons] = useState([{ course_topic: "test" }]);
@@ -22,11 +23,13 @@ const Home = ({ navigation: { navigate } }) => {
 
   useEffect(() => {
     setIsLoading(true);
+
     getLessons().then((lessonsArray) => {
       setLessons(lessonsArray);
     });
     getLessonsCompleted(username).then((response) => {
       setCompletedLessons(response.completed_lessons);
+
       setIsLoading(false);
     });
   }, [lessons[0].course_topic, completedLessons.length]);
