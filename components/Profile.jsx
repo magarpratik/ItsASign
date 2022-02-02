@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, View, ActivityIndicator } from "react-native";
 import { Bar } from "react-native-progress";
 import { UserContext } from "../utils/userContext";
 import Badges from "./Badges";
