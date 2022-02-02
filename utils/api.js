@@ -29,6 +29,27 @@ export const getUser = (username) => {
     .catch((err) => {
       console.log(err);
     });
+
+};
+
+export const patchUserDetails = (
+  username,
+  email,
+  password,
+  progress,
+  picture
+) => {
+  return signApi
+    .patch(`/api/users/${username}`, { email, password, progress, picture })
+    .then((res) => {
+      console.log(res.data);
+      return res.data;
+    })
+    .catch((err) => {
+      console.log(err);
+      return err;
+    });
+
 };
 
 export const getLessons = (course_topic) => {
@@ -56,6 +77,9 @@ export const signIn = (username, password) => {
       return response.data;
     })
     .catch((err) => {
-      console.log("there was a n error");
+
+      console.log(err);
+      return { err, status: 404 };
+
     });
 };

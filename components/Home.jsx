@@ -7,23 +7,35 @@ import {
   Text,
   View,
   TouchableOpacity,
+
+  ActivityIndicator,
+
 } from "react-native";
-import { UserContext } from "../utils/userContext";
+import { LoadingContext, UserContext } from "../utils/userContext";
 import Badges from "./Badges";
 import { getLessons, getLessonsCompleted } from "../utils/api";
 
 const Home = ({ navigation: { navigate } }) => {
   const { username } = React.useContext(UserContext);
 
+  const { isLoading, setIsLoading } = React.useContext(LoadingContext);
+
+
   const [lessons, setLessons] = useState([{ course_topic: "test" }]);
   const [completedLessons, setCompletedLessons] = useState([]);
 
   useEffect(() => {
+
+    setIsLoading(true);
+
     getLessons().then((lessonsArray) => {
       setLessons(lessonsArray);
     });
     getLessonsCompleted(username).then((response) => {
       setCompletedLessons(response.completed_lessons);
+
+      setIsLoading(false);
+
     });
   }, [lessons[0].course_topic, completedLessons.length]);
 
@@ -59,19 +71,27 @@ const Home = ({ navigation: { navigate } }) => {
   );
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.header}>Available lessons</Text>
-      <FlatList
-        data={lessons}
-        renderItem={renderItem}
-        keyExtractor={(item, index) => index.toString()}
-        style={{
-          height: "60%",
-          backgroundColor: "eggshell",
-          flexGrow: 0,
-        }}
-      />
-      <Badges></Badges>
+
+    <View>
+      {isLoading ? (
+        <ActivityIndicator size="large" color="#00ff00" />
+      ) : (
+        <View style={styles.container}>
+          <Text style={styles.header}>Available lessons</Text>
+          <FlatList
+            data={lessons}
+            renderItem={renderItem}
+            keyExtractor={(item, index) => index.toString()}
+            style={{
+              height: "60%",
+              backgroundColor: "eggshell",
+              flexGrow: 0,
+            }}
+          />
+          <Badges />
+        </View>
+      )}
+
     </View>
   );
 };
