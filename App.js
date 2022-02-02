@@ -11,7 +11,7 @@ import Leaderboard from "./components/Leaderboard";
 import Settings from "./components/Settings";
 import CustomDrawer from "./components/CustomDrawer";
 import { LessonThenQuiz } from "./components/Lesson-then-quiz";
-import { UserContext } from "./utils/userContext";
+import { UserContext, LoadingContext } from "./utils/userContext";
 
 const Stack = createNativeStackNavigator();
 
@@ -75,55 +75,58 @@ function DrawerNavigator({ navigation: { navigate } }) {
 
 export default function App() {
   const [username, setUsername] = React.useState("John Smith");
+  const [isLoading, setIsLoading] = React.useState(false);
 
   return (
     <UserContext.Provider value={{ username, setUsername }}>
-      <NavigationContainer>
-        <Stack.Navigator
-          screenOptions={{
-            cardStyle: { backgroundColor: "#78ba97" },
-          }}
-        >
-          <Stack.Screen
-            name="SignIn"
-            component={SignIn}
-            options={{
-              title: "Sign In ",
-              headerStyle: { backgroundColor: "#3d9891" },
-              headerTitleStyle: {
-                color: "#fff",
-              },
+      <LoadingContext.Provider value={{ isLoading, setIsLoading }}>
+        <NavigationContainer>
+          <Stack.Navigator
+            screenOptions={{
+              cardStyle: { backgroundColor: "#78ba97" },
             }}
-          />
-          <Stack.Screen
-            name="SignUp"
-            component={SignUp}
-            options={{
-              title: "Sign Up",
-              headerStyle: { backgroundColor: "#3d9891" },
-              headerTitleStyle: {
-                color: "#fff",
-              },
-            }}
-          />
-          <Stack.Screen
-            name="HomePage"
-            component={DrawerNavigator}
-            options={{
-              headerShown: false,
-              backgroundColor: "#78ba97",
-            }}
-          />
-          <Stack.Screen
-            name="Lesson"
-            component={LessonThenQuiz}
-            options={{
-              headerShown: false,
-              backgroundColor: "#78ba97",
-            }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
+          >
+            <Stack.Screen
+              name="SignIn"
+              component={SignIn}
+              options={{
+                title: "Sign In ",
+                headerStyle: { backgroundColor: "#3d9891" },
+                headerTitleStyle: {
+                  color: "#fff",
+                },
+              }}
+            />
+            <Stack.Screen
+              name="SignUp"
+              component={SignUp}
+              options={{
+                title: "Sign Up",
+                headerStyle: { backgroundColor: "#3d9891" },
+                headerTitleStyle: {
+                  color: "#fff",
+                },
+              }}
+            />
+            <Stack.Screen
+              name="HomePage"
+              component={DrawerNavigator}
+              options={{
+                headerShown: false,
+                backgroundColor: "#78ba97",
+              }}
+            />
+            <Stack.Screen
+              name="Lesson"
+              component={LessonThenQuiz}
+              options={{
+                headerShown: false,
+                backgroundColor: "#78ba97",
+              }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </LoadingContext.Provider>
     </UserContext.Provider>
   );
 }

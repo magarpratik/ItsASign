@@ -38,14 +38,10 @@ export const patchUserDetails = (
   progress,
   picture
 ) => {
-  return (signApi.patch(`/api/users/${username}`),
-  {
-    email: email,
-    password: password,
-    progress: progress,
-    picture: picture,
-  })
+  return signApi
+    .patch(`/api/users/${username}`, { email, password, progress, picture })
     .then((res) => {
+      console.log(res.data);
       return res.data;
     })
     .catch((err) => {

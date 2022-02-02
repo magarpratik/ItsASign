@@ -1,10 +1,19 @@
 import { useEffect, useState, useContext } from "react";
-import { Image, StyleSheet, Text, View, Button } from "react-native";
+import {
+  Image,
+  StyleSheet,
+  Text,
+  View,
+  ActivityIndicator,
+  Button,
+  Pressable,
+} from "react-native";
 import { Bar } from "react-native-progress";
-import { UserContext } from "../utils/userContext";
+import { UserContext, LoadingContext } from "../utils/userContext";
 import Badges from "./Badges";
 import React from "react";
 import {
+  allAvatars,
   avatar1,
   avatar2,
   avatar3,
@@ -13,59 +22,80 @@ import {
   avatar6,
   avatar7,
 } from "../assets/avatars/avatars-export";
-import { getUser } from "../utils/api";
+import { getUser, patchUserDetails } from "../utils/api";
 
 const Profile = () => {
-  const { username } = useContext(UserContext);
-
-  const [avatarX, setAvatarX] = useState("avatar2");
-  console.log(avatarX);
-
-  const [user, setUser] = useState({});
-
-  useEffect(() => {
-    getUser(username).then((res) => {
-      setUser(res);
-      setAvatarX(res.picture);
-    });
-  }, []);
-
+  const { username } = React.useContext(UserContext);
+  const { isLoading, setIsLoading } = React.useContext(LoadingContext);
   const [level, setLevel] = useState(0);
   const [progress, setProgress] = useState(0);
   const [totalXP, setTotalXP] = useState(0);
+  const [user, setUser] = useState({});
+  const [avatarX, setAvatarX] = useState(1);
 
   useEffect(() => {
+    setIsLoading(true);
     setTotalXP(153);
-  }, []);
-
-  useEffect(() => {
     setLevel(Math.floor(totalXP / 100));
     setProgress((totalXP % 100) / 100);
+    getUser(username).then((res) => {
+      console.log(res.picture);
+      setUser(res);
+      const index = res.picture[6];
+      setAvatarX(index - 1);
+      console.log(avatarX);
+      setIsLoading(false);
+    });
   }, [totalXP]);
 
-  let counter = 1;
-  const nextAvatar = () => {
-    if (counter < 8) {
-      counter += 1;
-      setAvatarX(`avatar${counter}`);
+  const showNext = () => {
+    if (avatarX < 6) {
+      setAvatarX((curAvatarX) => {
+        return curAvatarX + 1;
+      });
     } else {
-      counter = 1;
-      setAvatarX(`avatar${counter}`);
+      setAvatarX(0);
     }
   };
-  console.log(user);
+
+  const patchAvatar = () => {
+    patchUserDetails(username, null, null, null, `avatar${avatarX + 1}`).then(
+      (res) => {
+        console.log(res);
+      }
+    );
+  };
+
   return (
-    <View style={styles.container}>
-      <Image source={avatarX} style={styles.image} />
-      <Button title=">>" onPress={nextAvatar} />
-      <Text>{username}</Text>
-      <View style={styles.bar}>
-        <Bar progress={progress} width={250} height={20} />
-        <Text>
-          Level {level} - {progress * 100}/100
-        </Text>
-      </View>
-      <Badges totalXP={totalXP} />
+    <View>
+      {isLoading ? (
+        <ActivityIndicator size="large" color="#00ff00" />
+      ) : (
+        <View style={styles.container}>
+          <Image source={allAvatars[avatarX]} style={styles.image} />
+          <View style={styles.container}>
+            <Pressable
+              style={styles.createButton}
+              onPress={() => {
+                showNext();
+              }}
+            >
+              <Text style={{ fontSize: 32, textAlign: "center" }}>{">>>"}</Text>
+            </Pressable>
+            <Pressable onPress={patchAvatar} style={styles.button}>
+              <Text style={styles.buttonText}>select avatar</Text>
+            </Pressable>
+          </View>
+          <Text>{username}</Text>
+          <View style={styles.bar}>
+            <Bar progress={progress} width={250} height={20} />
+            <Text>
+              Level {level} - {progress * 100}/100
+            </Text>
+          </View>
+          <Badges totalXP={totalXP} />
+        </View>
+      )}
     </View>
   );
 };
