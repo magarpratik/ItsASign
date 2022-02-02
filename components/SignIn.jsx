@@ -9,7 +9,7 @@ import {
   Text,
   Pressable,
 } from "react-native";
-import { getUser, signIn } from "../utils/api";
+import { signIn } from "../utils/api";
 import { UserContext } from "../utils/userContext";
 
 const SignIn = ({ navigation }) => {
@@ -41,8 +41,7 @@ const SignIn = ({ navigation }) => {
 
     signIn(userText, passwordText)
       .then((res) => {
-        console.log(res.status);
-
+        console.log(res);
         if (res.successful === true) {
           navigation.navigate("HomePage");
         } else if (res.status === 404) {
