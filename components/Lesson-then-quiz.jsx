@@ -1,13 +1,15 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
-    Button,
-    StyleSheet,
-    Text,
-    View,
-    Touchable,
-    TouchableOpacity,
-    Image,
-    Pressable,
+  Button,
+  StyleSheet,
+  Text,
+  View,
+  Touchable,
+  TouchableOpacity,
+  Image,
+  Pressable,
+  TextInput,
+  Dimensions,
 } from "react-native";
 
 import { data } from "../utils/Quiz-A-data";
@@ -20,98 +22,245 @@ import * as tf from "@tensorflow/tfjs";
 import * as tmPose from "@teachablemachine/pose";
 
 import { tmImage } from "@teachablemachine/pose";
+
+import {
+  bundleResourceIO,
+  cameraWithTensors,
+} from "@tensorflow/tfjs-react-native";
+import { Camera } from "expo-camera";
+import { StatusBar } from "expo-status-bar";
+
+import React, { Component } from "react";
+import { WebView } from "react-native-webview";
+
+const TensorCamera = cameraWithTensors(Camera);
+
+const CAM_PREVIEW_WIDTH = Dimensions.get("window").width;
+const CAM_PREVIEW_HEIGHT = CAM_PREVIEW_WIDTH / (9 / 16);
+
+const OUTPUT_TENSOR_WIDTH = 272;
+const OUTPUT_TENSOR_HEIGHT = 480;
+
 const LessonThenQuiz = () => {
-    const allQuestions = data;
-    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-    const [lessonCompleted, setLessonCompleted] = useState(false);
+  const allQuestions = data;
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [lessonCompleted, setLessonCompleted] = useState(true);
 
-    const URL = "https://teachablemachine.withgoogle.com/models/duhLU5Dd4/";
+  // ML stuff
 
-    let model, webcam, labelContainer, maxPredictions;
-    // Load the image model and setup the webcam
-    async function init() {
-        console.log(tmImage);
+  const [url, setUrl] = useState(
+    "https://greenerideal.com/wp-content/uploads/2012/09/cow.jpg"
+  );
+  const [displayText, setDisplayText] = useState("loading");
 
-        const modelURL = URL + "model.json";
-        const metadataURL = URL + "metadata.json";
+  async function getPrediction(url) {
+    setDisplayText("Loading tensor flow");
+    await tf.ready();
+  }
 
-        // load the model and metadata
-        // Refer to tmImage.loadFromFiles() in the API to support files from a file picker
-        // or files from your local hard drive
-        // Note: the pose library adds "tmImage" object to your window (window.tmImage)
-        model = await tmImage.load(modelURL, metadataURL);
-        maxPredictions = model.getTotalClasses();
+  // ML stuff
 
-        // Convenience function to setup a webcam
-        const flip = true; // whether to flip the webcam
-        webcam = new tmImage.Webcam(200, 200, flip); // width, height, flip
-        await webcam.setup(); // request access to the webcam
-        await webcam.play();
-        window.requestAnimationFrame(loop);
+  // WebView
 
-        // append elements to the DOM
-        document.getElementById("webcam-container").appendChild(webcam.canvas);
-        labelContainer = document.getElementById("label-container");
-        for (let i = 0; i < maxPredictions; i++) {
-            // and class labels
-            labelContainer.appendChild(document.createElement("div"));
-        }
+  // WebView
+
+  // CAMERA
+
+  const [tfReady, setTfReady] = useState(false);
+  const [model, setModel] = useState();
+  const [up, setUp] = useState(null);
+
+  const rafId = useRef(null);
+
+  useEffect(() => {
+    async function prepare() {
+      rafId.current = null;
+      await Camera.requestCameraPermissionsAsync();
+      await tf.ready();
+
+      const modelJson = require("./model/model.json");
+      const modelWeights = require("./model/weights.bin");
+
+      const model = await tf.loadLayersModel(
+        bundleResourceIO(modelJson, modelWeights)
+      );
+      setModel(model);
+
+      setTfReady(true);
+
+      console.log("ready!");
     }
 
-    async function loop() {
-        webcam.update(); // update the webcam frame
-        await predict();
-        window.requestAnimationFrame(loop);
-    }
+    prepare();
+  }, []);
 
-    // run the webcam image through the image model
-    async function predict() {
-        // predict can take in an image, video or canvas html element
-        const prediction = await model.predict(webcam.canvas);
-        for (let i = 0; i < maxPredictions; i++) {
-            const classPrediction =
-                prediction[i].className +
-                ": " +
-                prediction[i].probability.toFixed(2);
-            labelContainer.childNodes[i].innerHTML = classPrediction;
-        }
-    }
+  useEffect(() => {
+    return () => {
+      if (rafId.current != null && rafId.current !== 0) {
+        cancelAnimationFrame(rafId.current);
+        rafId.current = 0;
+      }
+    };
+  }, []);
 
-    if (lessonCompleted === false) {
-        return (
-            <View>
-                <Lesson setLessonCompleted={setLessonCompleted} />
-            </View>
+  const handleCameraStream = async (images, updatePreview, gl) => {
+    console.log("camera ready!");
+
+    const loop = async () => {
+      if (rafId.current === 0) {
+        return;
+      }
+
+      tf.tidy(() => {
+        const imageTensor = images.next().value.expandDims(0).div(127.5).sub(1);
+
+        const f =
+          (OUTPUT_TENSOR_HEIGHT - OUTPUT_TENSOR_WIDTH) /
+          2 /
+          OUTPUT_TENSOR_HEIGHT;
+
+        const cropped = tf.image.cropAndResize(
+          imageTensor,
+          tf.tensor2d([f, 0, 1 - f, 1], [1, 4]),
+          [0],
+          [224, 224]
         );
-    } else if (lessonCompleted === true) {
-        return (
-            <View>
-                <Pressable onPress={init} style={styles.cameraStart}>
-                    <Text>Start</Text>
-                </Pressable>
-            </View>
-        );
-    }
 
-    // {
-    //     lessonCompleted ? (
-    //         <CamTest />
-    //     ) : (
-    //         <View>
-    //             <Lesson setLessonCompleted={setLessonCompleted} />
-    //         </View>
-    //     );
-    // }
+        const result = model.predict(cropped);
+        const logits = result.dataSync();
+
+        if (logits) {
+          setUp(logits[0] > logits[1]);
+          if (logits[0] > logits[1]) {
+            console.log("UP!")
+          } else {
+            console.log("DOWN!")
+          }
+        } else setUp(null);
+      });
+
+      rafId.current = requestAnimationFrame(loop);
+    };
+
+    loop();
+  };
+
+  if (!tfReady) {
+    return (
+      <View style={styles.loadingMsg}>
+        <Text>Loading...</Text>
+      </View>
+    );
+  } else {
+    return (
+      <View style={styles.container}>
+        <TensorCamera
+          style={styles.camera}
+          autorender={true}
+          type={Camera.Constants.Type.front}
+          resizeWidth={OUTPUT_TENSOR_WIDTH}
+          resizeHeight={OUTPUT_TENSOR_HEIGHT}
+          resizeDepth={3}
+          onReady={handleCameraStream}
+        />
+        <View style={styles.resultContainer}>
+          <Text style={styles.resultText}>{up ? "UP!" : "DOWN!"}</Text>
+        </View>
+      </View>
+    );
+  }
+
+  // CAMERA
+
+  if (lessonCompleted === false) {
+    return (
+      <View>
+        <Lesson setLessonCompleted={setLessonCompleted} />
+      </View>
+    );
+  } else if (lessonCompleted === true) {
+    return (
+      <View
+        style={{ width: "90%", height: "90%", marginTop: 40, marginLeft: 20 }}
+      >
+        {/* <Text style={styles.topText}>Only works with jpeg images for now</Text>
+        <TextInput
+          style={{
+            height: 40,
+            width: "90%",
+            borderColor: "gray",
+            borderWidth: 1,
+          }}
+          onChangeText={(text) => setUrl(text)}
+          value={url}
+        />
+        <Button title="classify"></Button>
+        <Image style={styles.image} source={{ uri: url }}></Image>
+
+        <Pressable
+          onPress={() => getPrediction(url)}
+          style={styles.cameraStart}
+        >
+          <Text>Start</Text>
+        </Pressable> */}
+      </View>
+    );
+  }
+
+  // {
+  //     lessonCompleted ? (
+  //         <CamTest />
+  //     ) : (
+  //         <View>
+  //             <Lesson setLessonCompleted={setLessonCompleted} />
+  //         </View>
+  //     );
+  // }
 };
 
 export { LessonThenQuiz };
 
 {
-    // More API functions here:
-    // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/image
-    // the link to your model provided by Teachable Machine export panel
-    // </script> */
+  // More API functions here:
+  // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/image
+  // the link to your model provided by Teachable Machine export panel
+  // </script> */
 }
 const styles = StyleSheet.create({
-    cameraStart: { marginTop: 20, backgroundColor: "white" },
+  cameraStart: { marginTop: 20, backgroundColor: "white" },
+  topText: { marginTop: 50 },
+  image: {
+    width: 200,
+    height: 200,
+  },
+  loadingMsg: {
+    position: "absolute",
+    width: "100%",
+    height: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  container: {
+    position: "relative",
+    width: CAM_PREVIEW_HEIGHT,
+    height: CAM_PREVIEW_HEIGHT,
+    marginTop: Dimensions.get("window").height / 2 - CAM_PREVIEW_HEIGHT / 2,
+  },
+  camera: {
+    width: "100%",
+    height: "100%",
+    zIndex: 1,
+  },
+  resultContainer: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    zIndex: 100,
+    padding: 20
+    ,
+    borderRadius: 8
+  },
+  resultText: {
+    fontSize: 30,
+  },
 });

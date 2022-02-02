@@ -77,54 +77,54 @@ export default function App() {
     const [username, setUsername] = React.useState("John Smith");
 
     return (
-        <UserContext.Provider value={{ username, setUsername }}>
-            <NavigationContainer>
-                <Stack.Navigator
-                    screenOptions={{
-                        cardStyle: { backgroundColor: "#78ba97" },
-                    }}
-                >
-                    <Stack.Screen
-                        name="SignIn"
-                        component={SignIn}
-                        options={{
-                            title: "Sign In ",
-                            headerStyle: { backgroundColor: "#3d9891" },
-                            headerTitleStyle: {
-                                color: "#fff",
-                            },
-                        }}
-                    />
-                    <Stack.Screen
-                        name="SignUp"
-                        component={SignUp}
-                        options={{
-                            title: "Sign Up",
-                            headerStyle: { backgroundColor: "#3d9891" },
-                            headerTitleStyle: {
-                                color: "#fff",
-                            },
-                        }}
-                    />
-                    <Stack.Screen
-                        name="HomePage"
-                        component={DrawerNavigator}
-                        options={{
-                            headerShown: false,
-                            backgroundColor: "#78ba97",
-                        }}
-                    />
-                    <Stack.Screen
-                        name="Lesson"
-                        component={LessonThenQuiz}
-                        options={{
-                            headerShown: false,
-                            backgroundColor: "#78ba97",
-                        }}
-                    />
-                </Stack.Navigator>
-            </NavigationContainer>
-        </UserContext.Provider>
+      <UserContext.Provider value={{ username, setUsername }}>
+        <NavigationContainer>
+          <Stack.Navigator
+            screenOptions={{
+              cardStyle: { backgroundColor: "#78ba97" },
+            }}
+          >
+            <Stack.Screen
+              name="Lesson"
+              component={LessonThenQuiz}
+              options={{
+                headerShown: false,
+                backgroundColor: "#78ba97",
+              }}
+            />
+            <Stack.Screen
+              name="SignIn"
+              component={SignIn}
+              options={{
+                title: "Sign In ",
+                headerStyle: { backgroundColor: "#3d9891" },
+                headerTitleStyle: {
+                  color: "#fff",
+                },
+              }}
+            />
+            <Stack.Screen
+              name="SignUp"
+              component={SignUp}
+              options={{
+                title: "Sign Up",
+                headerStyle: { backgroundColor: "#3d9891" },
+                headerTitleStyle: {
+                  color: "#fff",
+                },
+              }}
+            />
+            <Stack.Screen
+              name="HomePage"
+              component={DrawerNavigator}
+              options={{
+                headerShown: false,
+                backgroundColor: "#78ba97",
+              }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </UserContext.Provider>
     );
 }
 
