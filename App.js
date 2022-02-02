@@ -86,62 +86,60 @@ function DrawerNavigator({ navigation: { navigate } }) {
 }
 
 export default function App() {
-    const [username, setUsername] = React.useState("John Smith");
+  const [username, setUsername] = React.useState("John Smith");
 
-    return (
-      <UserContext.Provider value={{ username, setUsername }}>
-        <NavigationContainer>
-          <Stack.Navigator
-            screenOptions={{
-              cardStyle: { backgroundColor: "#78ba97" },
+  return (
+    <UserContext.Provider value={{ username, setUsername }}>
+      <NavigationContainer>
+        <Stack.Navigator
+          screenOptions={{
+            cardStyle: { backgroundColor: "#78ba97" },
+          }}
+        >
+          <Stack.Screen
+            name="SignIn"
+            component={SignIn}
+            options={{
+              title: "Sign In ",
+              headerStyle: { backgroundColor: "#3d9891" },
+              headerTitleStyle: {
+                color: "#fff",
+              },
             }}
-          >
-            <Stack.Screen
-              name="SignIn"
-              component={SignIn}
-              options={{
-                title: "Sign In ",
-                headerStyle: { backgroundColor: "#3d9891" },
-                headerTitleStyle: {
-                  color: "#fff",
-                },
-              }}
-            />
-
-            <Stack.Screen
-              name="Lesson"
-              component={LessonThenQuiz}
-              options={{
-                headerShown: false,
-                backgroundColor: "#78ba97",
-              }}
-            />
-
-            <Stack.Screen
-              name="SignUp"
-              component={SignUp}
-              options={{
-                title: "Sign Up",
-                headerStyle: { backgroundColor: "#3d9891" },
-                headerTitleStyle: {
-                  color: "#fff",
-                },
-              }}
-            />
-            <Stack.Screen
-              name="HomePage"
-              component={DrawerNavigator}
-              options={{
-                headerShown: false,
-                backgroundColor: "#78ba97",
-              }}
-            />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </UserContext.Provider>
-    );
+          />
+          <Stack.Screen
+            name="SignUp"
+            component={SignUp}
+            options={{
+              title: "Sign Up",
+              headerStyle: { backgroundColor: "#3d9891" },
+              headerTitleStyle: {
+                color: "#fff",
+              },
+            }}
+          />
+          <Stack.Screen
+            name="HomePage"
+            component={DrawerNavigator}
+            options={{
+              headerShown: false,
+              backgroundColor: "#78ba97",
+            }}
+          />
+          <Stack.Screen
+            name="Lesson"
+            component={LessonThenQuiz}
+            options={{
+              headerShown: false,
+              backgroundColor: "#78ba97",
+            }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </UserContext.Provider>
+  );
 }
 
 const styles = StyleSheet.create({
-    image: { width: 50, height: 50, marginRight: 10 },
+  image: { width: 50, height: 50, marginRight: 10 },
 });
