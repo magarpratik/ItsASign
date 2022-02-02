@@ -15,11 +15,13 @@ const Profile = () => {
   useEffect(() => {
     setIsLoading(true);
     setTotalXP(153);
-    setIsLoading(false);
-  }, []);
-  useEffect(() => {
     setLevel(Math.floor(totalXP / 100));
     setProgress((totalXP % 100) / 100);
+    getUser(username).then((res) => {
+      setUser(res);
+      setAvatarX(res.picture);
+      setIsLoading(false);
+    });
   }, [totalXP]);
 
   return (
