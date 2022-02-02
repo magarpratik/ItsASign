@@ -1,76 +1,72 @@
 import { useEffect, useState, useContext } from "react";
 import {
-    Image,
-    StyleSheet,
-    Text,
-    View,
-    ActivityIndicator,
-    Button,
-    Pressable,
+  Image,
+  StyleSheet,
+  Text,
+  View,
+  ActivityIndicator,
+  Button,
+  Pressable,
 } from "react-native";
 import { Bar } from "react-native-progress";
 import { UserContext, LoadingContext } from "../utils/userContext";
 import Badges from "./Badges";
 import React from "react";
 import {
-    allAvatars,
-    avatar1,
-    avatar2,
-    avatar3,
-    avatar4,
-    avatar5,
-    avatar6,
-    avatar7,
+  allAvatars,
+  avatar1,
+  avatar2,
+  avatar3,
+  avatar4,
+  avatar5,
+  avatar6,
+  avatar7,
 } from "../assets/avatars/avatars-export";
 import { getUser, patchUserDetails } from "../utils/api";
 
 const Profile = ({ setAvatarIndex }) => {
-    const { username } = React.useContext(UserContext);
-    const { isLoading, setIsLoading } = React.useContext(LoadingContext);
-    const [level, setLevel] = useState(0);
-    const [progress, setProgress] = useState(0);
-    const [totalXP, setTotalXP] = useState(0);
-    const [user, setUser] = useState({});
-    const [avatarX, setAvatarX] = useState(1);
-    useEffect(() => {
-        setAvatarIndex(avatarX);
-    }, [avatarX]);
-    useEffect(() => {
-        setIsLoading(true);
-        setTotalXP(153);
-        setLevel(Math.floor(totalXP / 100));
-        setProgress((totalXP % 100) / 100);
-        getUser(username).then((res) => {
-            console.log(res.picture);
-            setUser(res);
-            const index = res.picture[6];
-            setAvatarX(index - 1);
-            console.log(avatarX);
-            setIsLoading(false);
-        });
-    }, [totalXP]);
+  const { username } = React.useContext(UserContext);
+  const { isLoading, setIsLoading } = React.useContext(LoadingContext);
+  const [level, setLevel] = useState(0);
+  const [progress, setProgress] = useState(0);
+  const [totalXP, setTotalXP] = useState(0);
+  const [user, setUser] = useState({});
+  const [avatarX, setAvatarX] = useState(1);
+  useEffect(() => {
+    setAvatarIndex(avatarX);
+  }, [avatarX]);
+  useEffect(() => {
+    setIsLoading(true);
+    setTotalXP(153);
+    setLevel(Math.floor(totalXP / 100));
+    setProgress((totalXP % 100) / 100);
+    getUser(username).then((res) => {
+      console.log(res.picture);
+      setUser(res);
+      const index = res.picture[6];
+      setAvatarX(index - 1);
+      console.log(avatarX);
+      setIsLoading(false);
+    });
+  }, [totalXP]);
 
-    const showNext = () => {
-        if (avatarX < 6) {
-            setAvatarX((curAvatarX) => {
-                return curAvatarX + 1;
-            });
-        } else {
-            setAvatarX(0);
-        }
-    };
+  const showNext = () => {
+    if (avatarX < 6) {
+      setAvatarX((curAvatarX) => {
+        return curAvatarX + 1;
+      });
+    } else {
+      setAvatarX(0);
+    }
+  };
 
-    const patchAvatar = () => {
-        patchUserDetails(
-            username,
-            null,
-            null,
-            null,
-            `avatar${avatarX + 1}`
-        ).then((res) => {
-            console.log(res);
-        });
-    };
+  const patchAvatar = () => {
+    patchUserDetails(username, null, null, null, `avatar${avatarX + 1}`).then(
+      (res) => {
+        console.log(res);
+      }
+    );
+  };
 
   const patchAvatar = () => {
     patchUserDetails(username, null, null, null, `avatar${avatarX + 1}`).then(
@@ -108,13 +104,13 @@ const Profile = ({ setAvatarIndex }) => {
             </Text>
           </View>
           <Badges totalXP={totalXP} />
-
         </View>
-    );
+      )}
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
-
   container: {
     display: "flex",
     flexDirection: "column",
@@ -139,7 +135,6 @@ const styles = StyleSheet.create({
     color: "white",
     alignSelf: "center",
   },
-
 });
 
 export default Profile;
