@@ -7,7 +7,9 @@ import {
   Text,
   View,
   TouchableOpacity,
+
   ActivityIndicator,
+
 } from "react-native";
 import { LoadingContext, UserContext } from "../utils/userContext";
 import Badges from "./Badges";
@@ -15,19 +17,25 @@ import { getLessons, getLessonsCompleted } from "../utils/api";
 
 const Home = ({ navigation: { navigate } }) => {
   const { username } = React.useContext(UserContext);
+
   const { isLoading, setIsLoading } = React.useContext(LoadingContext);
+
 
   const [lessons, setLessons] = useState([{ course_topic: "test" }]);
   const [completedLessons, setCompletedLessons] = useState([]);
 
   useEffect(() => {
+
     setIsLoading(true);
+
     getLessons().then((lessonsArray) => {
       setLessons(lessonsArray);
     });
     getLessonsCompleted(username).then((response) => {
       setCompletedLessons(response.completed_lessons);
+
       setIsLoading(false);
+
     });
   }, [lessons[0].course_topic, completedLessons.length]);
 
@@ -63,6 +71,7 @@ const Home = ({ navigation: { navigate } }) => {
   );
 
   return (
+
     <View>
       {isLoading ? (
         <ActivityIndicator size="large" color="#00ff00" />
@@ -82,6 +91,7 @@ const Home = ({ navigation: { navigate } }) => {
           <Badges />
         </View>
       )}
+
     </View>
   );
 };
