@@ -7,6 +7,7 @@ import {
   Touchable,
   TouchableOpacity,
   Image,
+  Pressable,
 } from "react-native";
 
 import { Next } from "./Next-button";
@@ -19,6 +20,7 @@ const Answer = ({
   allQuestions,
   currentQuestionIndex,
   setCurrentQuestionIndex,
+  navigation,
 }) => {
   const [currentSelectedOption, setCurrentSelectedOption] = useState(null);
   const [correctOption, setCorrectOption] = useState(null);
@@ -75,7 +77,7 @@ const Answer = ({
   } else if (allQuestions[currentQuestionIndex]["question_type"] === "camera") {
     return !answered ? (
       <View>
-        <CameraWithML setAnswered={setAnswered}/>
+        <CameraWithML setAnswered={setAnswered} setShowNextButton={setShowNextButton}/>
         <Next
           allQuestions={allQuestions}
           currentQuestionIndex={currentQuestionIndex}
@@ -87,7 +89,22 @@ const Answer = ({
           setShowNextButton={setShowNextButton}
         />
       </View>
-    ) : <Text>Answered!!!</Text>;
+    ) : (
+      <View>
+        <Text>NEXT!</Text>
+        <Next
+          allQuestions={allQuestions}
+          currentQuestionIndex={currentQuestionIndex}
+          setCurrentQuestionIndex={setCurrentQuestionIndex}
+          setCurrentSelectedOption={setCurrentSelectedOption}
+          setCorrectOption={setCorrectOption}
+          setIsOptionDisabled={setIsOptionDisabled}
+          showNextButton={showNextButton}
+            setShowNextButton={setShowNextButton}
+            answered={answered}
+        />
+      </View>
+    );
   }
 };
 

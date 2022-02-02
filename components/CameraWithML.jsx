@@ -24,7 +24,7 @@ const CAM_PREVIEW_HEIGHT = CAM_PREVIEW_WIDTH / (9 / 16);
 const OUTPUT_TENSOR_WIDTH = 272;
 const OUTPUT_TENSOR_HEIGHT = 480;
 
-const CameraWithML = ({setAnswered}) => {
+const CameraWithML = ({setAnswered, setShowNextButton}) => {
   const [lessonCompleted, setLessonCompleted] = useState(true);
 
   // CAMERA
@@ -117,6 +117,7 @@ const CameraWithML = ({setAnswered}) => {
           counter = 0;
           console.log("Correct!")
           setAnswered(true)
+          setShowNextButton(true)
         }
       });
 

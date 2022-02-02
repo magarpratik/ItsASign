@@ -12,6 +12,8 @@ import Settings from "./components/Settings";
 import CustomDrawer from "./components/CustomDrawer";
 import { LessonThenQuiz } from "./components/Lesson-then-quiz";
 import { UserContext } from "./utils/userContext";
+import {FinishedLesson} from "./components/Finished-lesson";
+import { Answer } from "./components/Answer-options";
 
 const Stack = createNativeStackNavigator();
 
@@ -119,6 +121,14 @@ export default function App() {
             <Stack.Screen
               name="HomePage"
               component={DrawerNavigator}
+              options={{
+                headerShown: false,
+                backgroundColor: "#78ba97",
+              }}
+            />
+            <Stack.Screen
+              name="FinishedLesson"
+              component={FinishedLesson}
               options={{
                 headerShown: false,
                 backgroundColor: "#78ba97",
