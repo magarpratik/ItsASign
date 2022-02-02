@@ -59,3 +59,26 @@ export const signIn = (username, password) => {
       console.log("there was a n error");
     });
 };
+
+export const getLessonAnswers = (lesson_number, index) => {
+  return signApi
+    .get(`api/courses/The%20alphabet/${lesson_number}/${index}/answers`)
+    .then((response) => {
+      return response.data.answers
+    }).catch((err) => {
+      console.log(err)
+    });
+};
+
+export const getLessonQuestions = (lesson_number, index) => {
+  return signApi
+    .get(`api/courses/The%20alphabet/${lesson_number}/${index}/question`)
+    .then((response) => {
+      return response.data.question;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  
+  
+};

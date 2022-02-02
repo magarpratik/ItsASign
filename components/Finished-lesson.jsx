@@ -1,7 +1,16 @@
-import { Text } from "react-native";
+import { Text, Button } from "react-native";
+import {
+  useNavigation,
+} from "@react-navigation/native";
+
 
 const FinishedLesson = () => {
-  return <Text>Lesson Finished!!!</Text>;
+  const navigation = useNavigation();
+
+
+  return (
+      <Text>Lesson Finished!!!</Text>
+  );
 };
 
-export { FinishedLesson } ;
+export { FinishedLesson };

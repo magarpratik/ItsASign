@@ -10,7 +10,7 @@ import {
   Pressable,
 } from "react-native";
 
-const Lesson = ({ setLessonCompleted }) => {
+const Lesson = ({ setLessonCompleted, setQuestionNumber }) => {
   const completeLesson = () => {
     setLessonCompleted(true);
   };

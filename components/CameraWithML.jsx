@@ -117,7 +117,7 @@ const CameraWithML = ({setAnswered, setShowNextButton}) => {
           counter = 0;
           console.log("Correct!")
           setAnswered(true)
-          setShowNextButton(true)
+          // setShowNextButton(true)
         }
       });
 
