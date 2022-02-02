@@ -18,15 +18,13 @@ import React, { Component } from "react";
 
 const TensorCamera = cameraWithTensors(Camera);
 
-  const CAM_PREVIEW_WIDTH = Dimensions.get("window").width;
-  const CAM_PREVIEW_HEIGHT = CAM_PREVIEW_WIDTH / (9 / 16);
+const CAM_PREVIEW_WIDTH = Dimensions.get("window").width;
+const CAM_PREVIEW_HEIGHT = CAM_PREVIEW_WIDTH / (9 / 16);
 
-  const OUTPUT_TENSOR_WIDTH = 272;
-  const OUTPUT_TENSOR_HEIGHT = 480;
+const OUTPUT_TENSOR_WIDTH = 272;
+const OUTPUT_TENSOR_HEIGHT = 480;
 
 const CameraWithML = () => {
-  
-
   const [lessonCompleted, setLessonCompleted] = useState(true);
 
   // CAMERA
@@ -71,6 +69,9 @@ const CameraWithML = () => {
   const handleCameraStream = async (images, updatePreview, gl) => {
     console.log("camera ready!");
 
+    let counter = 0;
+
+
     const loop = async () => {
       if (rafId.current === 0) {
         return;
@@ -95,13 +96,26 @@ const CameraWithML = () => {
 
         const logits = result.dataSync();
 
+
+
         if (logits) {
           setUp(logits[0] > logits[1]);
           if (logits[1] > logits[0]) {
+            counter++;
             console.log("Lettter A");
           } else {
+            counter--;
             console.log("Default");
           }
+        }
+
+        console.log(counter)
+
+        if (counter < -5) counter = 0;
+
+        if (counter === 10) {
+          counter = 0;
+          console.log("Correct!")
         }
       });
 
