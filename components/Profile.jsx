@@ -75,12 +75,12 @@ const Profile = () => {
           <Image source={allAvatars[avatarX]} style={styles.image} />
           <View style={styles.container}>
             <Pressable
-              style={styles.createButton}
+              style={styles.button}
               onPress={() => {
                 showNext();
               }}
             >
-              <Text style={{ fontSize: 32, textAlign: "center" }}>{">>>"}</Text>
+              <Text style={styles.buttonText}>Next Avatar</Text>
             </Pressable>
             <Pressable onPress={patchAvatar} style={styles.button}>
               <Text style={styles.buttonText}>select avatar</Text>
@@ -106,13 +106,24 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
   },
-  image: { width: 200, height: 300, marginTop: 30, marginBottom: 100 },
+  image: { width: 200, height: 300, marginTop: 30, marginBottom: 20 },
   bar: {
     marginHorizontal: 10,
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
     marginTop: 10,
+  },
+  button: {
+    backgroundColor: "#004346",
+    margin: 10,
+    borderRadius: 10,
+    paddingVertical: 5,
+    paddingHorizontal: 20,
+  },
+  buttonText: {
+    color: "white",
+    alignSelf: "center",
   },
 });
 
