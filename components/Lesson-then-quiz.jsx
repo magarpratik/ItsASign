@@ -38,6 +38,7 @@ import TextQuestion from "./TextQuestion";
 import { Next } from "./Next-button";
 import NewButton from "./NewButton";
 import { FinishedLesson } from "./Finished-lesson";
+import FinalButton from "./FinalButton";
 
 const LessonThenQuiz = () => {
   const allQuestions = data;
@@ -48,7 +49,7 @@ const LessonThenQuiz = () => {
   const [renderButton, setRenderButton] = useState(false);
   const [answered, setAnswered] = useState(false);
 
-  const navigation = useNavigation();
+  
 
   // CAMERA
   console.log(questionNumber);
@@ -118,10 +119,7 @@ const LessonThenQuiz = () => {
             <CameraWithML setAnswered={setAnswered} />
           </View>
         ) : (
-          <Button
-            title="Finish!"
-            onPress={() => navigation.navigate("FinishedLesson")}
-          />
+          <FinalButton />
         );
     }
   }
