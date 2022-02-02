@@ -18,9 +18,11 @@ import { getUser } from "../utils/api";
 const Profile = () => {
   const { username } = useContext(UserContext);
 
-  const [avatarX, setAvatarX] = useState("");
+  const [avatarX, setAvatarX] = useState("avatar2");
   console.log(avatarX);
+
   const [user, setUser] = useState({});
+
   useEffect(() => {
     getUser(username).then((res) => {
       setUser(res);
