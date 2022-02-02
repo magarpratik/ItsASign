@@ -15,8 +15,6 @@ const Lesson = ({ setLessonCompleted }) => {
             <Button title="Next" onPress={completeLesson} />
         </View>
     )
-
-
 }
 
 export { Lesson }

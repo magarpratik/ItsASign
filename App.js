@@ -31,47 +31,57 @@ function DrawerNavigator({ navigation: { navigate } }) {
         </TouchableOpacity>
     );
     return (
-        <Drawer.Navigator
-            initialRouteName="Home"
-            drawerContent={(props) => <CustomDrawer {...props} />}
-            screenOptions={{
-                drawerActiveBackgroundColor: "#1d5e1e",
-                drawerActiveTintColor: "yellow",
-                drawerLabelStyle: {
-                    // fontFamily: "Roboto-Medium",
-                    fontSize: 20,
-                },
-            }}
-        >
-            <Drawer.Screen
-                name="Home"
-                component={Home}
-                options={{
-                    headerRight: () => profileImgLink,
-                }}
-            />
-            <Drawer.Screen
-                name="Profile"
-                component={Profile}
-                options={{
-                    headerRight: () => profileImgLink,
-                }}
-            />
-            <Drawer.Screen
-                name="Leaderboard"
-                component={Leaderboard}
-                options={{
-                    headerRight: () => profileImgLink,
-                }}
-            />
-            <Drawer.Screen
-                name="Settings"
-                component={Settings}
-                options={{
-                    headerRight: () => profileImgLink,
-                }}
-            />
-        </Drawer.Navigator>
+      <Drawer.Navigator
+        initialRouteName="Home"
+        drawerContent={(props) => <CustomDrawer {...props} />}
+        screenOptions={{
+          drawerActiveBackgroundColor: "#1d5e1e",
+          drawerActiveTintColor: "yellow",
+          drawerLabelStyle: {
+            // fontFamily: "Roboto-Medium",
+            fontSize: 20,
+          },
+        }}
+      >
+        <Drawer.Screen
+          name="Home"
+          component={Home}
+          options={{
+            headerRight: () => profileImgLink,
+          }}
+        />
+        <Drawer.Screen
+          name="Profile"
+          component={Profile}
+          options={{
+            headerRight: () => profileImgLink,
+          }}
+        />
+        <Drawer.Screen
+          name="Leaderboard"
+          component={Leaderboard}
+          options={{
+            headerRight: () => profileImgLink,
+          }}
+        />
+        <Drawer.Screen
+          name="Settings"
+          component={Settings}
+          options={{
+            headerRight: () => profileImgLink,
+          }}
+        />
+        <Drawer.Screen
+          name="FinishedLesson"
+          component={FinishedLesson}
+          options={{
+            headerRight: () => profileImgLink,
+            drawerLabel: () => null,
+            title: null,
+            drawerIcon: () => null,
+          }}
+        />
+      </Drawer.Navigator>
     );
 }
 
@@ -121,14 +131,6 @@ export default function App() {
             <Stack.Screen
               name="HomePage"
               component={DrawerNavigator}
-              options={{
-                headerShown: false,
-                backgroundColor: "#78ba97",
-              }}
-            />
-            <Stack.Screen
-              name="FinishedLesson"
-              component={FinishedLesson}
               options={{
                 headerShown: false,
                 backgroundColor: "#78ba97",
