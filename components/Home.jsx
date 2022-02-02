@@ -82,7 +82,6 @@ const Home = ({ navigation: { navigate } }) => {
               flexGrow: 0,
             }}
           />
-          <Badges />
         </View>
       )}
     </View>

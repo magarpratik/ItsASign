@@ -27,26 +27,36 @@ import { getUser, patchUserDetails } from "../utils/api";
 const Profile = () => {
   const { username } = React.useContext(UserContext);
   const { isLoading, setIsLoading } = React.useContext(LoadingContext);
+
   const [level, setLevel] = useState(0);
   const [progress, setProgress] = useState(0);
-  const [totalXP, setTotalXP] = useState(0);
+
+  const [totalXP, setTotalXP] = useState(1);
   const [user, setUser] = useState({});
   const [avatarX, setAvatarX] = useState(1);
 
   useEffect(() => {
     setIsLoading(true);
-    setTotalXP(153);
-    setLevel(Math.floor(totalXP / 100));
-    setProgress((totalXP % 100) / 100);
+
     getUser(username).then((res) => {
-      console.log(res.picture);
       setUser(res);
       const index = res.picture[6];
       setAvatarX(index - 1);
-      console.log(avatarX);
+      setTotalXP(res.progress.total_xp);
+
       setIsLoading(false);
     });
+  }, []);
+
+  useEffect(() => {
+    setLevel(Math.floor(totalXP / 100));
+    setProgress((totalXP % 100) / 100);
+    console.log(totalXP);
   }, [totalXP]);
+
+  useEffect(() => {
+    console.log(progress);
+  }, [progress]);
 
   const showNext = () => {
     if (avatarX < 6) {
