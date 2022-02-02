@@ -68,14 +68,6 @@ const Profile = ({ setAvatarIndex }) => {
     );
   };
 
-  const patchAvatar = () => {
-    patchUserDetails(username, null, null, null, `avatar${avatarX + 1}`).then(
-      (res) => {
-        console.log(res);
-      }
-    );
-  };
-
   return (
     <View>
       {isLoading ? (
