@@ -5,6 +5,7 @@ import { Next } from "./Next-button"
 import { PictureOptions } from './Picture-options';
 import { LetterOptions } from './Letter-options';
 import { Cam } from './Camera-test'
+import { CameraWithML } from './CameraWithML';
 
 const Answer = ({ allQuestions, currentQuestionIndex, setCurrentQuestionIndex }) => {
     const [currentSelectedOption, setCurrentSelectedOption] = useState(null)
@@ -39,7 +40,7 @@ const Answer = ({ allQuestions, currentQuestionIndex, setCurrentQuestionIndex })
     } else if (allQuestions[currentQuestionIndex]['question_type'] === 'camera') {
       return ( 
         <View>
-          <Cam />
+          <CameraWithML />
           <Next allQuestions={allQuestions} currentQuestionIndex={currentQuestionIndex} setCurrentQuestionIndex={setCurrentQuestionIndex} setCurrentSelectedOption={setCurrentSelectedOption} setCorrectOption={setCorrectOption} setIsOptionDisabled={setIsOptionDisabled} showNextButton={showNextButton} setShowNextButton={setShowNextButton} />
         </View>
       )

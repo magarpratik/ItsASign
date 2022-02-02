@@ -85,14 +85,6 @@ export default function App() {
             }}
           >
             <Stack.Screen
-              name="Lesson"
-              component={LessonThenQuiz}
-              options={{
-                headerShown: false,
-                backgroundColor: "#78ba97",
-              }}
-            />
-            <Stack.Screen
               name="SignIn"
               component={SignIn}
               options={{
@@ -103,6 +95,16 @@ export default function App() {
                 },
               }}
             />
+
+            <Stack.Screen
+              name="Lesson"
+              component={LessonThenQuiz}
+              options={{
+                headerShown: false,
+                backgroundColor: "#78ba97",
+              }}
+            />
+
             <Stack.Screen
               name="SignUp"
               component={SignUp}

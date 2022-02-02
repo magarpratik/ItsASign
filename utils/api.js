@@ -33,7 +33,7 @@ export const getUser = (username) => {
 
 export const getLessons = (course_topic) => {
     return signApi
-        .get("/api/courses/alpha")
+        .get("/api/courses/The alphabet")
         .then((response) => {
             return response.data.courses;
         })
