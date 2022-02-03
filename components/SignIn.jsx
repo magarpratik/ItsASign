@@ -20,12 +20,15 @@ const SignIn = ({ navigation }) => {
   const [isValidUsername, setIsValidUsername] = useState(true);
   const [isValidPassword, setIsValidPassword] = useState(true);
   const [isFirstLoad, setIsFirstLoad] = useState(true);
-
+  const [exists, setExists] = useState(true);
+  const [isError, setIsError] = useState(false);
   const { username, setUsername } = useContext(UserContext);
 
   const handleSignIn = () => {
     setIsValidPassword(true);
     setIsValidUsername(true);
+    setExists(true);
+    setIsError(false);
     const checkPasswordValid = (text) => {
       return text.match(/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.{8,50})/) !== null;
     };
@@ -41,17 +44,17 @@ const SignIn = ({ navigation }) => {
 
     signIn(userText, passwordText)
       .then((res) => {
-        console.log(res);
         if (res.successful === true) {
           navigation.navigate("HomePage");
         } else if (res.status === 404) {
-          setIsValidUsername(false);
+          setExists(false);
         } else if (res.status === 401) {
           setIsValidPassword(false);
         }
       })
       .catch((err) => {
         console.log(err);
+        setIsError(true);
       });
   };
 
@@ -70,8 +73,11 @@ const SignIn = ({ navigation }) => {
         style={styles.textInput}
         onChangeText={setUserText}
       />
-      {isValidUsername ? null : (
+      {exists ? null : (
         <Text style={styles.errorText}>User does not exist.</Text>
+      )}
+      {isValidUsername ? null : (
+        <Text style={styles.errorText}>Username too short.</Text>
       )}
       <TextInput
         placeholder="Password"
@@ -81,6 +87,9 @@ const SignIn = ({ navigation }) => {
       />
       {isValidPassword ? null : (
         <Text style={styles.errorText}>Incorrect password.</Text>
+      )}
+      {!isError ? null : (
+        <Text style={styles.errorText}>There was a problem signing in.</Text>
       )}
 
       <Pressable style={styles.button} onPress={handleSignIn}>
