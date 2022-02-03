@@ -1,12 +1,18 @@
 import { useEffect, useState } from "react";
-import { Text, TouchableOpacity, Image, View, Button } from "react-native";
+import {
+  Text,
+  TouchableOpacity,
+  Image,
+  View,
+  Button,
+  StyleSheet,
+  Pressable,
+} from "react-native";
 import { getLessonAnswers, getLessonQuestions } from "../utils/api";
 
 const TextQuestion = ({ questionNumber, setRenderButton }) => {
   const [question, setQuestion] = useState("");
   const [answers, setAnswers] = useState([]);
-
-  
 
   useEffect(() => {
     setRenderButton(false);
@@ -19,7 +25,7 @@ const TextQuestion = ({ questionNumber, setRenderButton }) => {
         tempAnswers.push([response[keys[i]].answer, response[keys[i]].correct]);
       }
 
-      console.log(tempAnswers)
+      console.log(tempAnswers);
 
       setAnswers(tempAnswers);
     });
@@ -40,30 +46,65 @@ const TextQuestion = ({ questionNumber, setRenderButton }) => {
     // }
 
     answers.map((answer) => {
-
       if (answer[0] === picture && answer[1] === true) {
-        console.log(answer[1])
+        console.log(answer[1]);
         // make the next button show up
-        setRenderButton(true)
+        setRenderButton(true);
       }
-    })
+    });
   };
 
   return (
-    <View>
+    <View style={styles.container}>
+      <Text style={styles.questionText}>
+        Which letter does the sign represent?
+      </Text>
       <Image
-        style={{ width: 50, height: 50 }}
+        style={styles.question}
         source={require("../assets/B.png")}
       />
-      {answers.map((option) => {
-        return (
-          <TouchableOpacity key={option[0]}>
-            <Button title={option[0]} onPress={() => isCorrect(option[0])} />
-          </TouchableOpacity>
-        );
-      })}
+      <View style={styles.answers}>
+        {answers.map((option) => {
+          return (
+            <TouchableOpacity key={option[0]}>
+              <Pressable
+                title={option[0]}
+                onPress={() => isCorrect(option[0])}
+                style={styles.button}
+              >
+                <Text style={styles.text}>{option[0]}</Text>
+              </Pressable>
+            </TouchableOpacity>
+          );
+        })}
+      </View>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  questionText: { fontSize: 32, textAlign: "center" },
+  question: { width: 250, height: 250 },
+  container: { display: "flex", flexDirection: "column", marginTop: 50, alignItems: "center" },
+  button: {
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderRadius: 4,
+    elevation: 3,
+    backgroundColor: "#27B197",
+    width: 200,
+    margin: 5
+  },
+  answers: {},
+  text: {
+    fontSize: 16,
+    lineHeight: 21,
+    fontWeight: "bold",
+    letterSpacing: 0.25,
+    color: "white",
+  },
+});
 
 export default TextQuestion;
