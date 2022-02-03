@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import {
-    FlatList,
-    Image,
-    Pressable,
-    StyleSheet,
-    Text,
-    View,
-    TouchableOpacity,
-    ActivityIndicator,
+
+  FlatList,
+  Image,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  ActivityIndicator,
+
 } from "react-native";
 import { LoadingContext, UserContext } from "../utils/userContext";
 import Badges from "./Badges";
@@ -25,11 +27,9 @@ const Home = ({ navigation: { navigate }, setAvatarIndex }) => {
         getUser(username).then((user) => {
             setAvatarIndex(Number(user.picture.at(-1)) - 1);
         });
-    }, []);
-
+ 
     useEffect(() => {
         setIsLoading(true);
-
         getLessons().then((lessonsArray) => {
             setLessons(lessonsArray);
         });
@@ -88,7 +88,6 @@ const Home = ({ navigation: { navigate }, setAvatarIndex }) => {
                             flexGrow: 0,
                         }}
                     />
-                    <Badges />
                 </View>
             )}
         </View>

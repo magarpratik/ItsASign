@@ -41,7 +41,6 @@ export const patchUserDetails = (
   return signApi
     .patch(`api/users/${username}`, { email, password, progress, picture })
     .then((res) => {
-      console.log(res.data);
       return res.data;
     })
     .catch((err) => {
@@ -71,14 +70,11 @@ export const signIn = (username, password) => {
   return signApi
     .get(`api/sign_in/?username=${username}&password=${password}`)
     .then((response) => {
-      console.log(response.data);
       return response.data;
     })
     .catch((err) => {
-      console.log(err);
-      return { err, status: 404 };
-    });
-};
+
+      return { status: err.response.status };
 
 export const getLessonAnswers = (lesson_number, index) => {
   return signApi
@@ -87,6 +83,7 @@ export const getLessonAnswers = (lesson_number, index) => {
       return response.data.answers
     }).catch((err) => {
       console.log(err)
+
     });
 };
 
