@@ -75,7 +75,10 @@ export const signIn = (username, password) => {
     .catch((err) => {
 
       return { status: err.response.status };
-
+    })
+};
+     
+      
 export const getLessonAnswers = (lesson_number, index) => {
   return signApi
     .get(`api/courses/The%20alphabet/${lesson_number}/${index}/answers`)

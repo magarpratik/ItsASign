@@ -27,6 +27,7 @@ const Home = ({ navigation: { navigate }, setAvatarIndex }) => {
         getUser(username).then((user) => {
             setAvatarIndex(Number(user.picture.at(-1)) - 1);
         });
+    }, []);
  
     useEffect(() => {
         setIsLoading(true);
@@ -87,7 +88,8 @@ const Home = ({ navigation: { navigate }, setAvatarIndex }) => {
                             backgroundColor: "eggshell",
                             flexGrow: 0,
                         }}
-                    />
+                        />
+                        <Badges />
                 </View>
             )}
         </View>
