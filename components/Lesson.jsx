@@ -45,14 +45,9 @@ const styles = StyleSheet.create({
     marginBottom: 0,
   },
   img: {
-<<<<<<< HEAD
-    width: 200,
-    height: 200,
-=======
     marginBottom: 10,
     width: 180,
     height: 180,
->>>>>>> f671cd92de9c44cdd5f881f95014ca461422662d
     borderRadius: 100 / 2,
     overflow: "hidden",
     borderWidth: 3,
