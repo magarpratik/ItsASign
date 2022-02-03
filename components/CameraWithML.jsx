@@ -137,7 +137,7 @@ const CameraWithML = ({setAnswered, setShowNextButton}) => {
   if (!tfReady) {
     return (
       <View style={styles.loadingMsg}>
-        <Text>Loading...</Text>
+        <Text style={styles.text}>Loading...</Text>
       </View>
     );
   } else {
@@ -222,4 +222,5 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     backgroundColor: "#aa0000",
   },
+  text: {  },
 });

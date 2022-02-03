@@ -115,10 +115,13 @@ const LessonThenQuiz = () => {
         return !answered ? (
           <View style={styles.container}>
             <Text style={styles.text}>Sign the letter 'A'</Text>
-            <CameraWithML setAnswered={setAnswered} style={ styles.camera}/>
+            <CameraWithML setAnswered={setAnswered} style={styles.camera} />
           </View>
         ) : (
-          <FinalButton />
+          <View>
+            <Text style={styles.text}>Good Job! You got it correct!</Text>
+            <FinalButton />
+          </View>
         );
     }
   }
@@ -146,5 +149,10 @@ export { LessonThenQuiz };
 const styles = StyleSheet.create({
   text: { fontSize: 32, textAlign: "center", marginTop: 80, marginRight: 20 },
   camera: {},
-  container: { display: "flex", flexDirection: "column", justifyContent: "center", marginLeft: 20},
+  container: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    marginLeft: 20,
+  },
 });
