@@ -80,6 +80,28 @@ export const signIn = (username, password) => {
     });
 };
 
+export const getLessonAnswers = (lesson_number, index) => {
+  return signApi
+    .get(`api/courses/The%20alphabet/${lesson_number}/${index}/answers`)
+    .then((response) => {
+      return response.data.answers
+    }).catch((err) => {
+      console.log(err)
+    });
+};
+
+export const getLessonQuestions = (lesson_number, index) => {
+  return signApi
+    .get(`api/courses/The%20alphabet/${lesson_number}/${index}/question`)
+    .then((response) => {
+      return response.data.question;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  
+  
+};
 export const allUsers = () => {
   return signApi.get(`api/ranked_users`).then((response) => {
     return response.data;

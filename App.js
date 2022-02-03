@@ -11,6 +11,8 @@ import Leaderboard from "./components/Leaderboard";
 import Settings from "./components/Settings";
 import CustomDrawer from "./components/CustomDrawer";
 import { LessonThenQuiz } from "./components/Lesson-then-quiz";
+import {FinishedLesson} from "./components/Finished-lesson";
+import { Answer } from "./components/Answer-options";
 import { UserContext, LoadingContext } from "./utils/userContext";
 import { allAvatars } from "./assets/avatars/avatars-export";
 
@@ -35,53 +37,61 @@ function DrawerNavigator({ navigation: { navigate } }) {
         </TouchableOpacity>
     );
     return (
-        <Drawer.Navigator
-            initialRouteName="Home"
-            drawerContent={(props) => (
-                <CustomDrawer {...props} avatarIndex={avatarIndex} />
-            )}
-            screenOptions={{
-                drawerActiveBackgroundColor: "#004346",
-                drawerActiveTintColor: "white",
-                drawerLabelStyle: {
-                    // fontFamily: "Roboto-Medium",
-                    fontSize: 20,
-                },
-            }}
+      <Drawer.Navigator
+        initialRouteName="Home"
+        drawerContent={(props) => (
+          <CustomDrawer {...props} avatarIndex={avatarIndex} />
+        )}
+        screenOptions={{
+          drawerActiveBackgroundColor: "#004346",
+          drawerActiveTintColor: "white",
+          drawerLabelStyle: {
+            // fontFamily: "Roboto-Medium",
+            fontSize: 20,
+          },
+        }}
+      >
+        <Drawer.Screen
+          name="Home"
+          options={{
+            headerRight: () => profileImgLink,
+          }}
         >
-            <Drawer.Screen
-                name="Home"
-                options={{
-                    headerRight: () => profileImgLink,
-                }}
-            >
-                {(props) => <Home {...props} setAvatarIndex={setAvatarIndex} />}
-            </Drawer.Screen>
-            <Drawer.Screen
-                name="Profile"
-                options={{
-                    headerRight: () => profileImgLink,
-                }}
-            >
-                {(props) => (
-                    <Profile {...props} setAvatarIndex={setAvatarIndex} />
-                )}
-            </Drawer.Screen>
-            <Drawer.Screen
-                name="Leaderboard"
-                component={Leaderboard}
-                options={{
-                    headerRight: () => profileImgLink,
-                }}
-            />
-            <Drawer.Screen
-                name="Settings"
-                component={Settings}
-                options={{
-                    headerRight: () => profileImgLink,
-                }}
-            />
-        </Drawer.Navigator>
+          {(props) => <Home {...props} setAvatarIndex={setAvatarIndex} />}
+        </Drawer.Screen>
+        <Drawer.Screen
+          name="Profile"
+          options={{
+            headerRight: () => profileImgLink,
+          }}
+        >
+          {(props) => <Profile {...props} setAvatarIndex={setAvatarIndex} />}
+        </Drawer.Screen>
+        <Drawer.Screen
+          name="Leaderboard"
+          component={Leaderboard}
+          options={{
+            headerRight: () => profileImgLink,
+          }}
+        />
+        <Drawer.Screen
+          name="Settings"
+          component={Settings}
+          options={{
+            headerRight: () => profileImgLink,
+          }}
+        />
+        <Drawer.Screen
+          name="FinishedLesson"
+          component={FinishedLesson}
+          options={{
+            headerRight: () => profileImgLink,
+            drawerLabel: () => null,
+            title: null,
+            drawerIcon: () => null,
+          }}
+        />
+      </Drawer.Navigator>
     );
 }
 
