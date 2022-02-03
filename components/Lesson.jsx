@@ -18,18 +18,10 @@ const Lesson = ({ setLessonCompleted, setQuestionNumber }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.header}>
-<<<<<<< HEAD
         Today you will be learning how to sign the letters 'A' and 'B'.
       </Text>
       <Image style={styles.img} source={require("../assets/A-q.png")} />
       <Image style={styles.img} source={require("../assets/B-q.png")} />
-=======
-        Today you will be learning how to sign the letter 'A' and 'B'
-      </Text>
-      <Image style={styles.img} source={require("../assets/A.png")} />
-      <Image style={styles.img} source={require("../assets/A.png")} />
-
->>>>>>> f671cd92de9c44cdd5f881f95014ca461422662d
       <Pressable style={styles.button} onPress={completeLesson}>
         <Text style={styles.buttonText}>Start</Text>
       </Pressable>
