@@ -18,10 +18,18 @@ const Lesson = ({ setLessonCompleted, setQuestionNumber }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.header}>
+<<<<<<< HEAD
         Today you will be learning how to sign the letters 'A' and 'B'.
       </Text>
       <Image style={styles.img} source={require("../assets/A-q.png")} />
       <Image style={styles.img} source={require("../assets/B-q.png")} />
+=======
+        Today you will be learning how to sign the letter 'A' and 'B'
+      </Text>
+      <Image style={styles.img} source={require("../assets/A.png")} />
+      <Image style={styles.img} source={require("../assets/A.png")} />
+
+>>>>>>> f671cd92de9c44cdd5f881f95014ca461422662d
       <Pressable style={styles.button} onPress={completeLesson}>
         <Text style={styles.buttonText}>Start</Text>
       </Pressable>
@@ -32,13 +40,12 @@ const Lesson = ({ setLessonCompleted, setQuestionNumber }) => {
 const styles = StyleSheet.create({
   container: {
     display: "flex",
-    marginTop: 30,
     flexDirection: "column",
     alignItems: "center",
     backgroundColor: "#F0F7F4",
   },
   header: {
-    marginTop: 50,
+    marginTop: 30,
     fontSize: 32,
     paddingTop: 15,
     paddingBottom: 15,
@@ -46,8 +53,14 @@ const styles = StyleSheet.create({
     marginBottom: 0,
   },
   img: {
+<<<<<<< HEAD
     width: 200,
     height: 200,
+=======
+    marginBottom: 10,
+    width: 180,
+    height: 180,
+>>>>>>> f671cd92de9c44cdd5f881f95014ca461422662d
     borderRadius: 100 / 2,
     overflow: "hidden",
     borderWidth: 3,
