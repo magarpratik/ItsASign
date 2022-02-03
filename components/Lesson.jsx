@@ -37,6 +37,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#F0F7F4",
   },
   header: {
+    marginTop: 50,
     fontSize: 32,
     paddingTop: 15,
     paddingBottom: 15,
@@ -59,7 +60,7 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     paddingHorizontal: 20,
     height: 50,
-    width: 100,
+    width: 150,
   },
   buttonText: {
     color: "white",
