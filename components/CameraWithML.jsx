@@ -32,6 +32,7 @@ const CameraWithML = ({setAnswered, setShowNextButton}) => {
   const [tfReady, setTfReady] = useState(false);
   const [model, setModel] = useState();
   const [up, setUp] = useState(null);
+  const [isCorrect, setIsCorrect] = useState(null);
 
   const rafId = useRef(null);
 
@@ -102,9 +103,11 @@ const CameraWithML = ({setAnswered, setShowNextButton}) => {
           setUp(logits[0] > logits[1]);
           if (logits[1] > logits[0]) {
             counter++;
+            setIsCorrect(true)
             console.log("Lettter A");
           } else {
             counter--;
+            setIsCorrect(false)
             console.log("Default");
           }
         }
@@ -116,7 +119,11 @@ const CameraWithML = ({setAnswered, setShowNextButton}) => {
         if (counter === 10) {
           counter = 0;
           console.log("Correct!")
+
+
           setAnswered(true)
+
+
           // setShowNextButton(true)
         }
       });
@@ -145,8 +152,14 @@ const CameraWithML = ({setAnswered, setShowNextButton}) => {
           resizeDepth={3}
           onReady={handleCameraStream}
         />
-        <View style={styles.resultContainer}>
-          <Text style={styles.resultText}>{up ? "UP!" : "DOWN!"}</Text>
+        <View 
+          style={
+            up
+              ? styles.resultContainerNotHotdog
+              : styles.resultContainerHotdog
+          }
+        >
+          <Text style={styles.resultText}>{up ? "WRONG" : "CORRECT!"}</Text>
         </View>
       </View>
     );
@@ -176,8 +189,8 @@ const styles = StyleSheet.create({
     marginTop: Dimensions.get("window").height / 2 - CAM_PREVIEW_HEIGHT / 2,
   },
   camera: {
-    width: "100%",
-    height: "100%",
+    width: "50%",
+    height: "60%",
     zIndex: 1,
   },
   resultContainer: {
@@ -190,5 +203,23 @@ const styles = StyleSheet.create({
   },
   resultText: {
     fontSize: 30,
+  },
+  resultContainerHotdog: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    zIndex: 100,
+    padding: 20,
+    borderRadius: 8,
+    backgroundColor: "#00aa00",
+  },
+  resultContainerNotHotdog: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    zIndex: 100,
+    padding: 20,
+    borderRadius: 8,
+    backgroundColor: "#aa0000",
   },
 });

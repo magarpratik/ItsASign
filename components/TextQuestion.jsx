@@ -95,9 +95,9 @@ const styles = StyleSheet.create({
     elevation: 3,
     backgroundColor: "#27B197",
     width: 200,
-    margin: 5
+    margin: 3
   },
-  answers: {},
+  answers: { marginTop: 8},
   text: {
     fontSize: 16,
     lineHeight: 21,
