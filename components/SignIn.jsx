@@ -9,7 +9,7 @@ import {
   Text,
   Pressable,
 } from "react-native";
-import { getUser, signIn } from "../utils/api";
+import { signIn } from "../utils/api";
 import { UserContext } from "../utils/userContext";
 
 const SignIn = ({ navigation }) => {
@@ -44,10 +44,10 @@ const SignIn = ({ navigation }) => {
         console.log(res);
         if (res.successful === true) {
           navigation.navigate("HomePage");
-        } else {
-          setIsValidPassword(false);
+        } else if (res.status === 404) {
           setIsValidUsername(false);
-          console.log(res.message);
+        } else if (res.status === 401) {
+          setIsValidPassword(false);
         }
       })
       .catch((err) => {
