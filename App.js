@@ -11,7 +11,6 @@ import Leaderboard from "./components/Leaderboard";
 import Settings from "./components/Settings";
 import CustomDrawer from "./components/CustomDrawer";
 import { LessonThenQuiz } from "./components/Lesson-then-quiz";
-import { UserContext } from "./utils/userContext";
 import {FinishedLesson} from "./components/Finished-lesson";
 import { Answer } from "./components/Answer-options";
 import { UserContext, LoadingContext } from "./utils/userContext";
