@@ -49,8 +49,6 @@ const LessonThenQuiz = () => {
   const [renderButton, setRenderButton] = useState(false);
   const [answered, setAnswered] = useState(false);
 
-  
-
   // CAMERA
   console.log(questionNumber);
 
@@ -115,11 +113,15 @@ const LessonThenQuiz = () => {
         break;
       case 2:
         return !answered ? (
-          <View>
-            <CameraWithML setAnswered={setAnswered} />
+          <View style={styles.container}>
+            <Text style={styles.text}>Sign the letter 'A'</Text>
+            <CameraWithML setAnswered={setAnswered} style={styles.camera} />
           </View>
         ) : (
-          <FinalButton />
+          <View>
+            <Text style={styles.text}>Good Job! You got it correct!</Text>
+            <FinalButton />
+          </View>
         );
     }
   }
@@ -143,34 +145,14 @@ export { LessonThenQuiz };
   // the link to your model provided by Teachable Machine export panel
   // </script> */
 }
+
 const styles = StyleSheet.create({
-  cameraStart: { marginTop: 20, backgroundColor: "white" },
-  topText: { marginTop: 50 },
-  image: {
-    width: 200,
-    height: 200,
-  },
-  loadingMsg: {
-    position: "absolute",
-    width: "100%",
-    height: "100%",
-    alignItems: "center",
+  text: { fontSize: 32, textAlign: "center", marginTop: 80, marginRight: 20 },
+  camera: {},
+  container: {
+    display: "flex",
+    flexDirection: "column",
     justifyContent: "center",
-  },
-  camera: {
-    width: "100%",
-    height: "100%",
-    zIndex: 1,
-  },
-  resultContainer: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    zIndex: 100,
-    padding: 20,
-    borderRadius: 8,
-  },
-  resultText: {
-    fontSize: 30,
+    marginLeft: 20,
   },
 });

@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { Text, TouchableOpacity, Image, View } from "react-native";
+import { Text, TouchableOpacity, Image, View, StyleSheet } from "react-native";
 import { getLessonAnswers, getLessonQuestions } from "../utils/api";
 
-const PictureQuestion = ({ questionNumber, setRenderButton}) => {
+const PictureQuestion = ({ questionNumber, setRenderButton }) => {
   const [question, setQuestion] = useState("");
   const [answers, setAnswers] = useState({});
 
@@ -20,46 +20,57 @@ const PictureQuestion = ({ questionNumber, setRenderButton}) => {
     if (answers[picture].correct === true) {
       // show the next button
 
-      setRenderButton(true)
+      setRenderButton(true);
 
       // when button is clicked, increment question number
-      
     }
   };
 
   return (
-    <View>
-      <Text>
-        {questionNumber + 1}: {question}
+    <View style={styles.container}>
+      <Text style={styles.question}>
+        Question {questionNumber + 1}: {question}
       </Text>
-      <Text>
-        <TouchableOpacity onPress={() => isCorrect("a")} key="picA">
-          <Image
-            style={{ width: 50, height: 50 }}
-            source={require("../assets/A.png")}
-          />
+      <Text style={styles.answers}>
+        <TouchableOpacity
+          onPress={() => isCorrect("a")}
+          key="picA"
+        >
+          <Image style={styles.image} source={require("../assets/A.png")} />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => isCorrect("b")} key="picB">
-          <Image
-            style={{ width: 50, height: 50 }}
-            source={require("../assets/B.png")}
-          />
+        <TouchableOpacity
+          onPress={() => isCorrect("b")}
+          key="picB"
+        >
+          <Image style={styles.image} source={require("../assets/B.png")} />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => isCorrect("c")} key="picC">
-          <Image
-            style={{ width: 50, height: 50 }}
-            source={require("../assets/C.png")}
-          />
+        <TouchableOpacity
+          onPress={() => isCorrect("c")}
+          key="picC"
+        >
+          <Image style={styles.image} source={require("../assets/C.png")} />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => isCorrect("d")} key="picD">
-          <Image
-            style={{ width: 50, height: 50 }}
-            source={require("../assets/D.png")}
-          />
+          <Image style={styles.image} source={require("../assets/D.png")} />
         </TouchableOpacity>
       </Text>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    display: "flex",
+    flexDirection: "column",
+    marginTop: 80,
+  },
+  answers: { display: "flex", alignSelf: "center" },
+  question: { fontSize: 32, textAlign: "center" },
+  image: {
+    margin: 10,
+    width: 150,
+    height: 150,
+  }
+});
 
 export default PictureQuestion;
