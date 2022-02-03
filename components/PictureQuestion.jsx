@@ -29,7 +29,7 @@ const PictureQuestion = ({ questionNumber, setRenderButton }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.question}>
-        Question {questionNumber + 1}: {question}
+        {question}
       </Text>
       <Text style={styles.answers}>
         <TouchableOpacity

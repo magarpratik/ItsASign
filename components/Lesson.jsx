@@ -18,9 +18,11 @@ const Lesson = ({ setLessonCompleted, setQuestionNumber }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.header}>
-        Today you will be learning how to sign the letter 'A'
+        Today you will be learning how to sign the letter 'A' and 'B'
       </Text>
       <Image style={styles.img} source={require("../assets/A.png")} />
+      <Image style={styles.img} source={require("../assets/A.png")} />
+
       <Pressable style={styles.button} onPress={completeLesson}>
         <Text style={styles.buttonText}>Start</Text>
       </Pressable>
@@ -31,13 +33,12 @@ const Lesson = ({ setLessonCompleted, setQuestionNumber }) => {
 const styles = StyleSheet.create({
   container: {
     display: "flex",
-    marginTop: 30,
     flexDirection: "column",
     alignItems: "center",
     backgroundColor: "#F0F7F4",
   },
   header: {
-    marginTop: 50,
+    marginTop: 30,
     fontSize: 32,
     paddingTop: 15,
     paddingBottom: 15,
@@ -45,8 +46,9 @@ const styles = StyleSheet.create({
     marginBottom: 0,
   },
   img: {
-    width: 250,
-    height: 250,
+    marginBottom: 10,
+    width: 180,
+    height: 180,
     borderRadius: 100 / 2,
     overflow: "hidden",
     borderWidth: 3,
