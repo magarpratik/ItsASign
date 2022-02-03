@@ -6,7 +6,7 @@ const signApi = axios.create({
 
 export const postUser = (name, username, password, email) => {
   return signApi
-    .post("/api/users/signup", {
+    .post("api/users/signup", {
       username: username,
       email: email,
       password: password,
@@ -22,7 +22,7 @@ export const postUser = (name, username, password, email) => {
 
 export const getUser = (username) => {
   return signApi
-    .get(`/api/users/${username}`)
+    .get(`api/users/${username}`)
     .then((response) => {
       return response.data.user;
     })
@@ -39,7 +39,7 @@ export const patchUserDetails = (
   picture
 ) => {
   return signApi
-    .patch(`/api/users/${username}`, { email, password, progress, picture })
+    .patch(`api/users/${username}`, { email, password, progress, picture })
     .then((res) => {
       return res.data;
     })
@@ -51,7 +51,7 @@ export const patchUserDetails = (
 
 export const getLessons = (course_topic) => {
   return signApi
-    .get("/api/courses/The alphabet")
+    .get("api/courses/The alphabet")
     .then((response) => {
       return response.data.courses;
     })
@@ -73,6 +73,34 @@ export const signIn = (username, password) => {
       return response.data;
     })
     .catch((err) => {
+
       return { status: err.response.status };
+
+export const getLessonAnswers = (lesson_number, index) => {
+  return signApi
+    .get(`api/courses/The%20alphabet/${lesson_number}/${index}/answers`)
+    .then((response) => {
+      return response.data.answers
+    }).catch((err) => {
+      console.log(err)
+
     });
+};
+
+export const getLessonQuestions = (lesson_number, index) => {
+  return signApi
+    .get(`api/courses/The%20alphabet/${lesson_number}/${index}/question`)
+    .then((response) => {
+      return response.data.question;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  
+  
+};
+export const allUsers = () => {
+  return signApi.get(`api/ranked_users`).then((response) => {
+    return response.data;
+  });
 };
