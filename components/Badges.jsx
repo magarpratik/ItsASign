@@ -176,6 +176,7 @@ const styles = StyleSheet.create({
   badges: {
     display: "flex",
     flexDirection: "row",
+    flexWrap: "wrap",
   },
   badgeItem: { width: 50, height: 50 },
 });
